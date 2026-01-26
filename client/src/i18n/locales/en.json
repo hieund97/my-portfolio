@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "viewWork": "View My Work",
+    "downloadResume": "Download Resume"
+  },
+  "about": {
+    "badge": "About Me",
+    "title": "Turning ideas into",
+    "titleHighlight": "reality",
+    "location": "Location",
+    "email": "Email"
+  },
+  "skills": {
+    "badge": "Skills",
+    "title": "My",
+    "titleHighlight": "Expertise",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "tools": "Tools & Others",
+    "other": "Other"
+  },
+  "projects": {
+    "badge": "Projects",
+    "title": "Featured",
+    "titleHighlight": "Work"
+  },
+  "experience": {
+    "badge": "Experience",
+    "title": "My",
+    "titleHighlight": "Journey",
+    "current": "Current",
+    "present": "Present"
+  },
+  "contact": {
+    "badge": "Contact",
+    "title": "Let's",
+    "titleHighlight": "Connect",
+    "description": "Have a project in mind or just want to say hi? Feel free to reach out!",
+    "getInTouch": "Get in Touch",
+    "location": "Location",
+    "email": "Email",
+    "phone": "Phone",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Project Inquiry",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your project...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully! I will get back to you soon.",
+      "error": "Failed to send message. Please try again."
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "madeWith": "Made with"
+  }
+}

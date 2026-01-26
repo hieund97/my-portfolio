@@ -1,0 +1,72 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "skills": "Kỹ năng",
+    "projects": "Dự án",
+    "experience": "Kinh nghiệm",
+    "contact": "Liên hệ",
+    "admin": "Quản trị"
+  },
+  "hero": {
+    "greeting": "Xin chào, tôi là",
+    "viewWork": "Xem dự án",
+    "downloadResume": "Tải CV"
+  },
+  "about": {
+    "badge": "Giới thiệu",
+    "title": "Biến ý tưởng thành",
+    "titleHighlight": "hiện thực",
+    "location": "Địa điểm",
+    "email": "Email"
+  },
+  "skills": {
+    "badge": "Kỹ năng",
+    "title": "Chuyên môn",
+    "titleHighlight": "của tôi",
+    "frontend": "Giao diện",
+    "backend": "Hệ thống",
+    "tools": "Công cụ & Khác",
+    "other": "Khác"
+  },
+  "projects": {
+    "badge": "Dự án",
+    "title": "Công việc",
+    "titleHighlight": "nổi bật"
+  },
+  "experience": {
+    "badge": "Kinh nghiệm",
+    "title": "Hành trình",
+    "titleHighlight": "của tôi",
+    "current": "Hiện tại",
+    "present": "Hiện tại"
+  },
+  "contact": {
+    "badge": "Liên hệ",
+    "title": "Hãy",
+    "titleHighlight": "kết nối",
+    "description": "Bạn có dự án cần thực hiện hoặc muốn nói lời chào? Hãy liên hệ với tôi!",
+    "getInTouch": "Liên hệ ngay",
+    "location": "Địa điểm",
+    "email": "Email",
+    "phone": "Điện thoại",
+    "form": {
+      "name": "Họ tên",
+      "namePlaceholder": "Nguyễn Văn A",
+      "email": "Email",
+      "emailPlaceholder": "email@example.com",
+      "subject": "Tiêu đề",
+      "subjectPlaceholder": "Hợp tác dự án",
+      "message": "Nội dung",
+      "messagePlaceholder": "Mô tả dự án của bạn...",
+      "send": "Gửi tin nhắn",
+      "sending": "Đang gửi...",
+      "success": "Tin nhắn đã được gửi thành công! Tôi sẽ phản hồi sớm.",
+      "error": "Gửi tin nhắn thất bại. Vui lòng thử lại."
+    }
+  },
+  "footer": {
+    "rights": "Bảo lưu mọi quyền.",
+    "madeWith": "Được tạo với"
+  }
+}
