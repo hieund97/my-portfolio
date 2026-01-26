@@ -1,6 +1,7 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -41,7 +42,7 @@ const contactLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.use(globalLimiter);
+// app.use(globalLimiter);
 
 // Initialize database
 initDatabase();
@@ -72,7 +73,9 @@ app.use('/api/social', socialRoutes);
 
 // Apply contact specific rate limit to POST messages (contact form)
 app.post('/api/messages', contactLimiter);
+app.post('/api/contact', contactLimiter);
 app.use('/api/messages', messagesRoutes);
+app.use('/api/contact', messagesRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -1,4 +1,7 @@
 import axios from 'axios';
+import express from 'express';
+import { db } from '../config/database.js';
+import { authenticateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 

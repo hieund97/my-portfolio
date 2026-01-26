@@ -76,7 +76,7 @@ const AdminLayout = () => {
           {/* Logo */}
           <div className="flex items-center justify-between p-6 border-b border-slate-100 dark:border-slate-800">
             <a href="/" className="font-display text-xl font-bold gradient-text">
-              Portfolio
+              HieuIsADev
             </a>
             <button
               onClick={() => setSidebarOpen(false)}

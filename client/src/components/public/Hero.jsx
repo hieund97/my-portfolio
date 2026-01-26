@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaFacebook, FaGithub, FaLinkedin, FaTelegram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { HiArrowDown, HiDownload } from 'react-icons/hi';
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -15,6 +16,10 @@ const Hero = ({ profile = {}, socialLinks = [] }) => {
       case 'github': return <FaGithub className="w-5 h-5" />;
       case 'linkedin': return <FaLinkedin className="w-5 h-5" />;
       case 'twitter': return <FaTwitter className="w-5 h-5" />;
+      case 'facebook': return <FaFacebook className="w-5 h-5" />;
+      case 'youtube': return <FaYoutube className="w-5 h-5" />;
+      case 'x': return <FaXTwitter className="w-5 h-5" />;
+      case 'telegram': return <FaTelegram className="w-5 h-5" />;
       default: return null;
     }
   };

@@ -1,4 +1,5 @@
-import { FaGithub, FaHeart, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaFacebook, FaGithub, FaHeart, FaLinkedin, FaTelegram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const Footer = ({ profile = {}, socialLinks = [] }) => {
@@ -10,6 +11,10 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
       case 'github': return <FaGithub className="w-5 h-5" />;
       case 'linkedin': return <FaLinkedin className="w-5 h-5" />;
       case 'twitter': return <FaTwitter className="w-5 h-5" />;
+      case 'facebook': return <FaFacebook className="w-5 h-5" />;
+      case 'youtube': return <FaYoutube className="w-5 h-5" />;
+      case 'x': return <FaXTwitter className="w-5 h-5" />;
+      case 'telegram': return <FaTelegram className="w-5 h-5" />;
       default: return null;
     }
   };
@@ -21,7 +26,7 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
           {/* Logo and copyright */}
           <div className="text-center md:text-left">
             <a href="#hero" className="font-display text-xl font-bold gradient-text">
-              Portfolio
+              HieuIsADev
             </a>
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-500">
               © {currentYear} {profile.name || 'Your Name'}. {t('footer.rights')}
