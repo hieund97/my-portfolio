@@ -1,7 +1,9 @@
 import { FaGithub, FaHeart, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const Footer = ({ profile = {}, socialLinks = [] }) => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   const getSocialIcon = (platform) => {
     switch (platform?.toLowerCase()) {
@@ -22,7 +24,7 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
               Portfolio
             </a>
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-500">
-              © {currentYear} {profile.name || 'Your Name'}. All rights reserved.
+              © {currentYear} {profile.name || 'Your Name'}. {t('footer.rights')}
             </p>
           </div>
 
@@ -43,7 +45,7 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
 
           {/* Made with love */}
           <p className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-500">
-            Made with <FaHeart className="w-4 h-4 text-red-500" /> using React
+            {t('footer.madeWith')} <FaHeart className="w-4 h-4 text-red-500" /> using React
           </p>
         </div>
       </div>

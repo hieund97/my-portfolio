@@ -2,10 +2,12 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { HiCode, HiExternalLink } from 'react-icons/hi';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const Projects = ({ projects = [] }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   // Default projects if none provided
   const defaultProjects = [
@@ -51,7 +53,7 @@ const Projects = ({ projects = [] }) => {
               transition={{ delay: 0.2 }}
               className="badge mb-4"
             >
-              Projects
+              {t('projects.badge')}
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -59,7 +61,7 @@ const Projects = ({ projects = [] }) => {
               transition={{ delay: 0.3 }}
               className="text-3xl md:text-4xl font-display font-bold"
             >
-              Featured <span className="gradient-text">Work</span>
+              {t('projects.title')} <span className="gradient-text">{t('projects.titleHighlight')}</span>
             </motion.h2>
           </div>
 

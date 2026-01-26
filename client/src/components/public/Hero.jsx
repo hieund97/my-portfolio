@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { HiArrowDown, HiDownload } from 'react-icons/hi';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const Hero = ({ profile = {}, socialLinks = [] }) => {
+  const { t } = useLanguage();
+
   const scrollToAbout = () => {
     document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -81,7 +84,7 @@ const Hero = ({ profile = {}, socialLinks = [] }) => {
             transition={{ delay: 0.2 }}
           >
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-4">
-              Hi, I'm{' '}
+              {t('hero.greeting')}{' '}
               <span className="gradient-text">{profile.name || 'Your Name'}</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 mb-2">
@@ -110,7 +113,7 @@ const Hero = ({ profile = {}, socialLinks = [] }) => {
               onClick={scrollToAbout}
               className="btn-primary"
             >
-              View My Work
+              {t('hero.viewWork')}
             </button>
             {profile.resumeUrl && (
               <a 
@@ -120,7 +123,7 @@ const Hero = ({ profile = {}, socialLinks = [] }) => {
                 className="btn-secondary"
               >
                 <HiDownload className="w-5 h-5" />
-                Download Resume
+                {t('hero.downloadResume')}
               </a>
             )}
           </motion.div>

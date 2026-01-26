@@ -1,11 +1,13 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { HiCheck, HiLocationMarker, HiMail, HiPaperAirplane, HiPhone, HiX } from 'react-icons/hi';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { messagesService } from '../../services/api';
 
 const Contact = ({ profile = {} }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState({ type: '', message: '' });
   const [loading, setLoading] = useState(false);
@@ -21,19 +23,19 @@ const Contact = ({ profile = {} }) => {
 
     try {
       await messagesService.send(formData);
-      setStatus({ type: 'success', message: 'Message sent successfully! I will get back to you soon.' });
+      setStatus({ type: 'success', message: t('contact.form.success') });
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      setStatus({ type: 'error', message: error.response?.data?.error || 'Failed to send message. Please try again.' });
+      setStatus({ type: 'error', message: error.response?.data?.error || t('contact.form.error') });
     } finally {
       setLoading(false);
     }
   };
 
   const contactInfo = [
-    { icon: HiMail, label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
-    { icon: HiPhone, label: 'Phone', value: profile.phone, href: `tel:${profile.phone}` },
-    { icon: HiLocationMarker, label: 'Location', value: profile.location },
+    { icon: HiMail, label: t('contact.email'), value: profile.email, href: `mailto:${profile.email}` },
+    { icon: HiPhone, label: t('contact.phone'), value: profile.phone, href: `tel:${profile.phone}` },
+    { icon: HiLocationMarker, label: t('contact.location'), value: profile.location },
   ].filter(item => item.value);
 
   return (
@@ -53,7 +55,7 @@ const Contact = ({ profile = {} }) => {
               transition={{ delay: 0.2 }}
               className="badge mb-4"
             >
-              Contact
+              {t('contact.badge')}
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -61,7 +63,7 @@ const Contact = ({ profile = {} }) => {
               transition={{ delay: 0.3 }}
               className="text-3xl md:text-4xl font-display font-bold"
             >
-              Let's <span className="gradient-text">Connect</span>
+              {t('contact.title')} <span className="gradient-text">{t('contact.titleHighlight')}</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -69,7 +71,7 @@ const Contact = ({ profile = {} }) => {
               transition={{ delay: 0.4 }}
               className="max-w-2xl mx-auto mt-4 text-slate-600 dark:text-slate-400"
             >
-              Have a project in mind or just want to say hi? Feel free to reach out!
+              {t('contact.description')}
             </motion.p>
           </div>
 
@@ -81,7 +83,7 @@ const Contact = ({ profile = {} }) => {
               transition={{ delay: 0.4 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-bold mb-8">Get in Touch</h3>
+              <h3 className="text-2xl font-bold mb-8">{t('contact.getInTouch')}</h3>
               
               <div className="space-y-4">
                 {contactInfo.map((item, index) => (
@@ -119,7 +121,7 @@ const Contact = ({ profile = {} }) => {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
+                    <label htmlFor="name" className="block text-sm font-medium mb-2">{t('contact.form.name')}</label>
                     <input
                       type="text"
                       id="name"
@@ -128,11 +130,11 @@ const Contact = ({ profile = {} }) => {
                       onChange={handleChange}
                       required
                       className="input"
-                      placeholder="John Doe"
+                      placeholder={t('contact.form.namePlaceholder')}
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
+                    <label htmlFor="email" className="block text-sm font-medium mb-2">{t('contact.form.email')}</label>
                     <input
                       type="email"
                       id="email"
@@ -141,13 +143,13 @@ const Contact = ({ profile = {} }) => {
                       onChange={handleChange}
                       required
                       className="input"
-                      placeholder="john@example.com"
+                      placeholder={t('contact.form.emailPlaceholder')}
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject</label>
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2">{t('contact.form.subject')}</label>
                   <input
                     type="text"
                     id="subject"
@@ -155,12 +157,12 @@ const Contact = ({ profile = {} }) => {
                     value={formData.subject}
                     onChange={handleChange}
                     className="input"
-                    placeholder="Project Inquiry"
+                    placeholder={t('contact.form.subjectPlaceholder')}
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">{t('contact.form.message')}</label>
                   <textarea
                     id="message"
                     name="message"
@@ -169,7 +171,7 @@ const Contact = ({ profile = {} }) => {
                     required
                     rows={5}
                     className="input resize-none"
-                    placeholder="Tell me about your project..."
+                    placeholder={t('contact.form.messagePlaceholder')}
                   />
                 </div>
 
@@ -200,12 +202,12 @@ const Contact = ({ profile = {} }) => {
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                       </svg>
-                      Sending...
+                      {t('contact.form.sending')}
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
                       <HiPaperAirplane className="w-5 h-5" />
-                      Send Message
+                      {t('contact.form.send')}
                     </span>
                   )}
                 </button>

@@ -14,10 +14,12 @@ import {
     SiTailwindcss,
     SiTypescript
 } from 'react-icons/si';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const Skills = ({ skills = [] }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   const getSkillIcon = (iconName) => {
     const icons = {
@@ -41,12 +43,6 @@ const Skills = ({ skills = [] }) => {
   };
 
   const categories = ['frontend', 'backend', 'tools', 'other'];
-  const categoryLabels = {
-    frontend: 'Frontend',
-    backend: 'Backend',
-    tools: 'Tools & Others',
-    other: 'Other'
-  };
 
   const groupedSkills = categories.reduce((acc, category) => {
     acc[category] = skills.filter(s => s.category === category);
@@ -86,7 +82,7 @@ const Skills = ({ skills = [] }) => {
               transition={{ delay: 0.2 }}
               className="badge mb-4"
             >
-              Skills
+              {t('skills.badge')}
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -94,7 +90,7 @@ const Skills = ({ skills = [] }) => {
               transition={{ delay: 0.3 }}
               className="text-3xl md:text-4xl font-display font-bold"
             >
-              My <span className="gradient-text">Expertise</span>
+              {t('skills.title')} <span className="gradient-text">{t('skills.titleHighlight')}</span>
             </motion.h2>
           </div>
 
@@ -112,7 +108,7 @@ const Skills = ({ skills = [] }) => {
                   transition={{ delay: 0.3 + categoryIndex * 0.1 }}
                 >
                   <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-6">
-                    {categoryLabels[category]}
+                    {t(`skills.${category}`)}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {categorySkills.map((skill, index) => (

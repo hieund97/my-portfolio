@@ -139,15 +139,15 @@ const Login = () => {
             )}
           </button>
 
-          <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
+          {/* <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
             Default: admin / admin123
-          </p>
+          </p> */}
         </motion.form>
 
         {/* Back to portfolio link */}
         <p className="text-center mt-6">
           <a href="/" className="text-sm text-primary-600 dark:text-primary-400 hover:underline">
-            ← Back to Portfolio
+            ← Back to HomePage
           </a>
         </p>
       </motion.div>

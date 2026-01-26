@@ -1,10 +1,12 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { HiLocationMarker, HiMail } from 'react-icons/hi';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const About = ({ profile = {} }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section id="about" className="section bg-slate-50/50 dark:bg-slate-900/50">
@@ -24,7 +26,7 @@ const About = ({ profile = {} }) => {
               transition={{ delay: 0.2 }}
               className="badge mb-4"
             >
-              About Me
+              {t('about.badge')}
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -32,8 +34,8 @@ const About = ({ profile = {} }) => {
               transition={{ delay: 0.3 }}
               className="text-3xl md:text-4xl font-display font-bold text-balance"
             >
-              Turning ideas into{' '}
-              <span className="gradient-text">reality</span>
+              {t('about.title')}{' '}
+              <span className="gradient-text">{t('about.titleHighlight')}</span>
             </motion.h2>
           </div>
 
@@ -91,7 +93,7 @@ const About = ({ profile = {} }) => {
                       <HiLocationMarker className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-sm text-slate-500 dark:text-slate-500">Location</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-500">{t('about.location')}</p>
                       <p className="font-medium">{profile.location}</p>
                     </div>
                   </div>
@@ -103,7 +105,7 @@ const About = ({ profile = {} }) => {
                       <HiMail className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-sm text-slate-500 dark:text-slate-500">Email</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-500">{t('about.email')}</p>
                       <a href={`mailto:${profile.email}`} className="font-medium hover:text-primary-600 transition-colors">
                         {profile.email}
                       </a>

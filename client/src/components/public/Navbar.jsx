@@ -1,24 +1,27 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { HiMenu, HiMoon, HiSun, HiX } from 'react-icons/hi';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { HiMenu, HiX, HiMoon, HiSun } from 'react-icons/hi';
 import { useTheme } from '../../contexts/ThemeContext';
-
-const navItems = [
-  { name: 'Home', href: '#hero' },
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Contact', href: '#contact' },
-];
+import { useLanguage } from '../../contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const { isDark, toggleTheme } = useTheme();
+  const { t } = useLanguage();
   const { scrollY } = useScroll();
   
+  const navItems = [
+    { name: t('nav.home'), href: '#hero' },
+    { name: t('nav.about'), href: '#about' },
+    { name: t('nav.skills'), href: '#skills' },
+    { name: t('nav.projects'), href: '#projects' },
+    { name: t('nav.experience'), href: '#experience' },
+    { name: t('nav.contact'), href: '#contact' },
+  ];
+
   const bgOpacity = useTransform(scrollY, [0, 100], [0, 1]);
   const blur = useTransform(scrollY, [0, 100], ['blur(0px)', 'blur(12px)']);
 
@@ -40,7 +43,7 @@ const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   const scrollToSection = (href) => {
     const id = href.replace('#', '');
@@ -71,14 +74,14 @@ const Navbar = () => {
             onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
             className="font-display text-2xl font-bold gradient-text"
           >
-            Portfolio
+            HieuIsADev
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <a
-                key={item.name}
+                key={item.href}
                 href={item.href}
                 onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
@@ -94,6 +97,8 @@ const Navbar = () => {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
+            <LanguageSwitcher />
+
             <button
               onClick={toggleTheme}
               className="p-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
@@ -102,12 +107,12 @@ const Navbar = () => {
               {isDark ? <HiSun className="w-5 h-5" /> : <HiMoon className="w-5 h-5" />}
             </button>
 
-            <Link
+            {/* <Link
               to="/admin/login"
               className="hidden md:inline-flex items-center px-4 py-2 rounded-xl text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             >
-              Admin
-            </Link>
+              {t('nav.admin')}
+            </Link> */}
 
             {/* Mobile menu button */}
             <button
@@ -128,7 +133,7 @@ const Navbar = () => {
           <div className="py-4 space-y-1">
             {navItems.map((item) => (
               <a
-                key={item.name}
+                key={item.href}
                 href={item.href}
                 onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
                 className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
@@ -144,7 +149,7 @@ const Navbar = () => {
               to="/admin/login"
               className="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-400"
             >
-              Admin
+              {t('nav.admin')}
             </Link>
           </div>
         </motion.div>

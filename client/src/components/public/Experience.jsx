@@ -1,10 +1,12 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { HiBriefcase } from 'react-icons/hi';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const Experience = ({ experience = [] }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t, language } = useLanguage();
 
   // Default experience if none provided
   const defaultExperience = [
@@ -40,9 +42,9 @@ const Experience = ({ experience = [] }) => {
   const displayExperience = experience.length > 0 ? experience : defaultExperience;
 
   const formatDate = (dateStr) => {
-    if (!dateStr) return 'Present';
+    if (!dateStr) return t('experience.present');
     const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    return date.toLocaleDateString(language === 'vi' ? 'vi-VN' : 'en-US', { month: 'short', year: 'numeric' });
   };
 
   return (
@@ -62,7 +64,7 @@ const Experience = ({ experience = [] }) => {
               transition={{ delay: 0.2 }}
               className="badge mb-4"
             >
-              Experience
+              {t('experience.badge')}
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -70,7 +72,7 @@ const Experience = ({ experience = [] }) => {
               transition={{ delay: 0.3 }}
               className="text-3xl md:text-4xl font-display font-bold"
             >
-              My <span className="gradient-text">Journey</span>
+              {t('experience.title')} <span className="gradient-text">{t('experience.titleHighlight')}</span>
             </motion.h2>
           </div>
 
@@ -107,11 +109,11 @@ const Experience = ({ experience = [] }) => {
                       {/* Date badge */}
                       <div className={`flex items-center gap-2 mb-3 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
                         <span className="px-3 py-1 text-sm font-medium rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400">
-                          {formatDate(exp.startDate)} - {exp.current ? 'Present' : formatDate(exp.endDate)}
+                          {formatDate(exp.startDate)} - {exp.current ? t('experience.present') : formatDate(exp.endDate)}
                         </span>
                         {exp.current && (
                           <span className="px-2 py-0.5 text-xs font-medium rounded bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
-                            Current
+                            {t('experience.current')}
                           </span>
                         )}
                       </div>
