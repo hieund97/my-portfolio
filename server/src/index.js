@@ -23,6 +23,26 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Global Rate Limiting
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: { error: 'Too many requests, please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Contact Form Rate Limiting
+const contactLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5, // Limit each IP to 5 contact submissions per hour
+  message: { error: 'Too many contact submissions. Please try again in an hour.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use(globalLimiter);
+
 // Initialize database
 initDatabase();
 
@@ -49,6 +69,9 @@ app.use('/api/skills', skillsRoutes);
 app.use('/api/projects', projectsRoutes);
 app.use('/api/experience', experienceRoutes);
 app.use('/api/social', socialRoutes);
+
+// Apply contact specific rate limit to POST messages (contact form)
+app.post('/api/messages', contactLimiter);
 app.use('/api/messages', messagesRoutes);
 
 // Health check

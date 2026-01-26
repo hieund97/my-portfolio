@@ -1,16 +1,46 @@
-import express from 'express';
-import { db } from '../config/database.js';
-import { authenticateToken } from '../middleware/auth.js';
+import axios from 'axios';
 
 const router = express.Router();
 
 // Submit contact message (public)
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, subject, message, _h_, turnstileToken } = req.body;
     
+    // 1. Honeypot check
+    if (_h_) {
+      console.warn('Spam detected: Honeypot filled');
+      return res.status(400).json({ error: 'Spam detected' });
+    }
+
     if (!name || !email || !message) {
       return res.status(400).json({ error: 'Name, email, and message are required' });
+    }
+
+    // 2. Turnstile verification
+    if (!turnstileToken) {
+      return res.status(400).json({ error: 'Security verification required' });
+    }
+
+    try {
+      const turnstileRes = await axios.post(
+        'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+        {
+          secret: process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA', // Using testing key as default
+          response: turnstileToken,
+          remoteip: req.ip,
+        },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      if (!turnstileRes.data.success) {
+        return res.status(400).json({ error: 'Security verification failed' });
+      }
+    } catch (err) {
+      console.error('Turnstile verification error:', err);
+      // Fail open in case of network error to Cloudflare, or handle strictly?
+      // For now, fail closed for security.
+      return res.status(400).json({ error: 'Security verification failed' });
     }
 
     // Basic email validation

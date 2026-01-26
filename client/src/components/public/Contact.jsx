@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { HiCheck, HiLocationMarker, HiMail, HiPaperAirplane, HiPhone, HiX } from 'react-icons/hi';
+import Turnstile from 'react-turnstile';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { messagesService } from '../../services/api';
 
@@ -8,7 +9,8 @@ const Contact = ({ profile = {} }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', _h_: '' });
+  const [turnstileToken, setTurnstileToken] = useState(null);
   const [status, setStatus] = useState({ type: '', message: '' });
   const [loading, setLoading] = useState(false);
 
@@ -18,13 +20,27 @@ const Contact = ({ profile = {} }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Simple honeypot check on client (optional, backend also checks)
+    if (formData._h_) {
+      setStatus({ type: 'error', message: 'Spam detected' });
+      return;
+    }
+
+    if (!turnstileToken) {
+      setStatus({ type: 'error', message: 'Please complete the security verification' });
+      return;
+    }
+
     setLoading(true);
     setStatus({ type: '', message: '' });
 
     try {
-      await messagesService.send(formData);
+      await messagesService.send({ ...formData, turnstileToken });
       setStatus({ type: 'success', message: t('contact.form.success') });
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '', _h_: '' });
+      // The Turnstile widget will need to be reset if the user wants to send another message, 
+      // but usually, it's one message per page load or we can manually reset it.
     } catch (error) {
       setStatus({ type: 'error', message: error.response?.data?.error || t('contact.form.error') });
     } finally {
@@ -119,6 +135,18 @@ const Contact = ({ profile = {} }) => {
               transition={{ delay: 0.5 }}
             >
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Honeypot field (hidden from users) */}
+                <div className="hidden" aria-hidden="true" style={{ display: 'none' }}>
+                  <input
+                    type="text"
+                    name="_h_"
+                    value={formData._h_}
+                    onChange={handleChange}
+                    tabIndex="-1"
+                    autoComplete="off"
+                  />
+                </div>
+
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">{t('contact.form.name')}</label>
@@ -172,6 +200,14 @@ const Contact = ({ profile = {} }) => {
                     rows={5}
                     className="input resize-none"
                     placeholder={t('contact.form.messagePlaceholder')}
+                  />
+                </div>
+
+                {/* Cloudflare Turnstile */}
+                <div className="flex justify-center md:justify-start">
+                  <Turnstile
+                    sitekey="1x00000000000000000000AA"
+                    onVerify={(token) => setTurnstileToken(token)}
                   />
                 </div>
 

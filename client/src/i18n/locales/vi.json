@@ -1,4 +1,8 @@
 {
+  "common": {
+    "loading": "Đang tải trang...",
+    "fetchError": "Lỗi khi tải dữ liệu:"
+  },
   "nav": {
     "home": "Trang chủ",
     "about": "Giới thiệu",

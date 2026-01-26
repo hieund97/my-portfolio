@@ -10,7 +10,10 @@ import Projects from '../../components/public/Projects';
 import Skills from '../../components/public/Skills';
 import { experienceService, profileService, projectsService, skillsService, socialService } from '../../services/api';
 
+import { useLanguage } from '../../contexts/LanguageContext';
+
 const Home = () => {
+  const { t } = useLanguage();
   const [data, setData] = useState({
     profile: {},
     skills: [],
@@ -39,14 +42,14 @@ const Home = () => {
           socialLinks: socialRes.data,
         });
       } catch (error) {
-        console.error('Failed to fetch portfolio data:', error);
+        console.error(t('common.fetchError'), error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [t]);
 
   if (loading) {
     return (
@@ -57,7 +60,7 @@ const Home = () => {
           className="flex flex-col items-center gap-4"
         >
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent"></div>
-          <p className="text-slate-500 dark:text-slate-400">Loading portfolio...</p>
+          <p className="text-slate-500 dark:text-slate-400">{t('common.loading')}</p>
         </motion.div>
       </div>
     );

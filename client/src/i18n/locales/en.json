@@ -1,4 +1,8 @@
 {
+  "common": {
+    "loading": "Loading portfolio...",
+    "fetchError": "Failed to fetch portfolio data:"
+  },
   "nav": {
     "home": "Home",
     "about": "About",
