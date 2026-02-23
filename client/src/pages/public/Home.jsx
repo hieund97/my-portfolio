@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import About from '../../components/public/About';
 import Contact from '../../components/public/Contact';
 import Experience from '../../components/public/Experience';
 import Footer from '../../components/public/Footer';
@@ -12,6 +11,7 @@ import { experienceService, profileService, projectsService, skillsService, soci
 
 import { useLanguage } from '../../contexts/LanguageContext';
 
+// Home Page Component
 const Home = () => {
   const { t } = useLanguage();
   const [data, setData] = useState({
@@ -71,7 +71,6 @@ const Home = () => {
       <Navbar />
       <main>
         <Hero profile={data.profile} socialLinks={data.socialLinks} />
-        <About profile={data.profile} />
         <Skills skills={data.skills} />
         <Projects projects={data.projects} />
         <Experience experience={data.experience} />

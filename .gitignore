@@ -66,9 +66,7 @@ temp/
 # ======================
 # Agent runtime stuff (nếu không muốn commit tool state)
 # ======================
-.agent/**/.cache/
-.agent/**/sessions/
-.agent/**/runtime/
+.agent
 
 # (Giữ lại markdown, csv, scripts trong .agent)
 # Không ignore toàn bộ .agent vì bạn đang dùng làm knowledge base

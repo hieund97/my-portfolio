@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
 // Update profile (admin only)
 router.put('/', authenticateToken, (req, res) => {
   try {
-    const { name, title, bio, email, phone, location, resumeUrl, heroTagline } = req.body;
+    const { name, title, bio, email, phone, location, telegramId, heroTagline } = req.body;
     
     db.prepare(`
       UPDATE profile SET 
@@ -35,11 +35,11 @@ router.put('/', authenticateToken, (req, res) => {
         email = COALESCE(?, email),
         phone = COALESCE(?, phone),
         location = COALESCE(?, location),
-        resumeUrl = COALESCE(?, resumeUrl),
+        telegramId = COALESCE(?, telegramId),
         heroTagline = COALESCE(?, heroTagline),
         updatedAt = CURRENT_TIMESTAMP
       WHERE id = 1
-    `).run(name, title, bio, email, phone, location, resumeUrl, heroTagline);
+    `).run(name, title, bio, email, phone, location, telegramId, heroTagline);
     
     const profile = db.prepare('SELECT * FROM profile WHERE id = 1').get();
     res.json(profile);
@@ -75,6 +75,36 @@ router.post('/avatar', authenticateToken, upload.single('avatar'), (req, res) =>
     });
   } catch (error) {
     console.error('Avatar upload error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// Upload avatar2 (admin only)
+router.post('/avatar2', authenticateToken, upload.single('avatar2'), (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    // Delete old avatar2 if exists
+    const profile = db.prepare('SELECT avatar2 FROM profile WHERE id = 1').get();
+    if (profile?.avatar2) {
+      const oldPath = path.join(__dirname, '../../uploads', profile.avatar2);
+      if (fs.existsSync(oldPath)) {
+        fs.unlinkSync(oldPath);
+      }
+    }
+
+    // Update with new avatar2
+    db.prepare('UPDATE profile SET avatar2 = ?, updatedAt = CURRENT_TIMESTAMP WHERE id = 1')
+      .run(req.file.filename);
+    
+    res.json({ 
+      avatar2: req.file.filename,
+      message: 'Avatar 2 uploaded successfully' 
+    });
+  } catch (error) {
+    console.error('Avatar 2 upload error:', error);
     res.status(500).json({ error: 'Server error' });
   }
 });

@@ -3,6 +3,7 @@ import { useAuth } from './contexts/AuthContext';
 
 // Public pages
 import Home from './pages/public/Home';
+import Pricing from './pages/public/Pricing';
 
 // Admin pages
 import AdminDashboard from './pages/admin/Dashboard';
@@ -41,6 +42,7 @@ function App() {
     <Routes>
       {/* Public routes */}
       <Route path="/" element={<Home />} />
+      <Route path="/pricing" element={<Pricing />} />
 
       {/* Admin routes */}
       <Route path="/admin/login" element={<AdminLogin />} />

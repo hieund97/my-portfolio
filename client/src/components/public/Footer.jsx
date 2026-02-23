@@ -29,7 +29,7 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
               HieuIsADev
             </a>
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-500">
-              © {currentYear} {profile.name || 'Your Name'}. {t('footer.rights')}
+              © {currentYear} {profile.name || 'Your Name'}. All rights reserved.
             </p>
           </div>
 
@@ -50,7 +50,7 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
 
           {/* Made with love */}
           <p className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-500">
-            {t('footer.madeWith')} <FaHeart className="w-4 h-4 text-red-500" /> using React
+            {t('footer.madeWith')} <FaHeart className="w-4 h-4 text-red-500" />
           </p>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { profileService } from '../../services/api';
 
 const Profile = () => {
   const [profile, setProfile] = useState({
-    name: '', title: '', bio: '', email: '', phone: '', location: '', resumeUrl: '', heroTagline: ''
+    name: '', title: '', bio: '', email: '', phone: '', location: '', telegramId: '', heroTagline: ''
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -46,6 +46,8 @@ const Profile = () => {
     }
   };
 
+  const [uploading2, setUploading2] = useState(false);
+
   const handleAvatarUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -59,6 +61,22 @@ const Profile = () => {
       setMessage({ type: 'error', text: 'Failed to upload avatar' });
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleAvatar2Upload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading2(true);
+    try {
+      const res = await profileService.uploadAvatar2(file);
+      setProfile(prev => ({ ...prev, avatar2: res.data.avatar2 }));
+      setMessage({ type: 'success', text: 'Second avatar uploaded!' });
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Failed to upload second avatar' });
+    } finally {
+      setUploading2(false);
     }
   };
 
@@ -93,20 +111,45 @@ const Profile = () => {
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Avatar section */}
           <div className="p-6 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50">
-            <h2 className="text-lg font-semibold mb-4">Avatar</h2>
-            <div className="flex items-center gap-6">
-              <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
-                {profile.avatar ? (
-                  <img src={`/uploads/${profile.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
-                ) : (
-                  <span className="text-3xl font-bold text-white">{profile.name?.charAt(0) || 'P'}</span>
-                )}
+            <h2 className="text-lg font-semibold mb-4">Avatars</h2>
+            <div className="grid sm:grid-cols-2 gap-6">
+              {/* Primary Avatar */}
+              <div className="flex flex-col gap-4">
+                <span className="text-sm font-medium text-slate-500">Primary Avatar</span>
+                <div className="flex items-center gap-6">
+                  <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+                    {profile.avatar ? (
+                      <img src={`/uploads/${profile.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-3xl font-bold text-white">{profile.name?.charAt(0) || 'P'}</span>
+                    )}
+                  </div>
+                  <label className={`btn-secondary cursor-pointer ${uploading ? 'opacity-50' : ''}`}>
+                    <HiUpload className="w-5 h-5" />
+                    {uploading ? 'Uploading...' : 'Upload Image'}
+                    <input type="file" accept="image/*" onChange={handleAvatarUpload} className="hidden" disabled={uploading} />
+                  </label>
+                </div>
               </div>
-              <label className={`btn-secondary cursor-pointer ${uploading ? 'opacity-50' : ''}`}>
-                <HiUpload className="w-5 h-5" />
-                {uploading ? 'Uploading...' : 'Upload Image'}
-                <input type="file" accept="image/*" onChange={handleAvatarUpload} className="hidden" disabled={uploading} />
-              </label>
+
+              {/* Secondary Avatar */}
+              <div className="flex flex-col gap-4">
+                <span className="text-sm font-medium text-slate-500">Secondary Avatar (Flip)</span>
+                <div className="flex items-center gap-6">
+                  <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-cyan-500 to-primary-500 flex items-center justify-center">
+                    {profile.avatar2 ? (
+                      <img src={`/uploads/${profile.avatar2}`} alt="Avatar 2" className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-3xl font-bold text-white">{profile.name?.charAt(0) || 'S'}</span>
+                    )}
+                  </div>
+                  <label className={`btn-secondary cursor-pointer ${uploading2 ? 'opacity-50' : ''}`}>
+                    <HiUpload className="w-5 h-5" />
+                    {uploading2 ? 'Uploading...' : 'Upload Image'}
+                    <input type="file" accept="image/*" onChange={handleAvatar2Upload} className="hidden" disabled={uploading2} />
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -150,8 +193,8 @@ const Profile = () => {
                 <input type="text" name="location" value={profile.location || ''} onChange={handleChange} className="input" />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Resume URL</label>
-                <input type="url" name="resumeUrl" value={profile.resumeUrl || ''} onChange={handleChange} className="input" placeholder="https://" />
+                <label className="block text-sm font-medium mb-2">Telegram ID</label>
+                <input type="text" name="telegramId" value={profile.telegramId || ''} onChange={handleChange} className="input" placeholder="@username" />
               </div>
             </div>
           </div>

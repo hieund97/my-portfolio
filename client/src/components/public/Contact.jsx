@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
+import { FaTelegram } from 'react-icons/fa';
 import { HiCheck, HiLocationMarker, HiMail, HiPaperAirplane, HiPhone, HiX } from 'react-icons/hi';
 import Turnstile from 'react-turnstile';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -51,6 +52,7 @@ const Contact = ({ profile = {} }) => {
   const contactInfo = [
     { icon: HiMail, label: t('contact.email'), value: profile.email, href: `mailto:${profile.email}` },
     { icon: HiPhone, label: t('contact.phone'), value: profile.phone, href: `tel:${profile.phone}` },
+    { icon: FaTelegram, label: t('contact.telegram'), value: profile.telegramId, href: profile.telegramId ? `https://t.me/${profile.telegramId.replace('@', '')}` : null },
     { icon: HiLocationMarker, label: t('contact.location'), value: profile.location },
   ].filter(item => item.value);
 

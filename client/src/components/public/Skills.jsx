@@ -1,18 +1,42 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { FaJava, FaMicrosoft } from 'react-icons/fa';
 import {
-    SiAmazonwebservices,
-    SiDocker,
-    SiFigma,
-    SiGit,
-    SiJavascript,
-    SiMongodb,
-    SiNodedotjs,
-    SiPostgresql,
-    SiPython,
-    SiReact,
-    SiTailwindcss,
-    SiTypescript
+  SiAmazonwebservices,
+  SiDocker,
+  SiExpress,
+  SiFigma,
+  SiFirebase,
+  SiFlutter,
+  SiGit,
+  SiGooglecloud,
+  SiGraphql,
+  SiJavascript,
+  SiKubernetes,
+  SiLaravel,
+  SiLinux,
+  SiMongodb,
+  SiMui,
+  SiMysql,
+  SiNestjs,
+  SiNextdotjs,
+  SiNginx,
+  SiNodedotjs,
+  SiPhp,
+  SiPostgresql,
+  SiPrisma,
+  SiPython,
+  SiRabbitmq,
+  SiReact,
+  SiRedis,
+  SiRedux,
+  SiSass,
+  SiSpringboot,
+  SiSupabase,
+  SiTailwindcss,
+  SiTypescript,
+  SiVuedotjs,
+  SiWordpress
 } from 'react-icons/si';
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -23,40 +47,77 @@ const Skills = ({ skills = [] }) => {
 
   const getSkillIcon = (iconName) => {
     const icons = {
-      react: SiReact,
-      node: SiNodedotjs,
-      nodejs: SiNodedotjs,
-      typescript: SiTypescript,
-      javascript: SiJavascript,
-      python: SiPython,
-      mongodb: SiMongodb,
-      postgresql: SiPostgresql,
-      docker: SiDocker,
-      tailwind: SiTailwindcss,
-      tailwindcss: SiTailwindcss,
-      git: SiGit,
-      aws: SiAmazonwebservices,
-      figma: SiFigma,
+      react: { icon: SiReact, color: '#61DAFB' },
+      node: { icon: SiNodedotjs, color: '#339933' },
+      nodejs: { icon: SiNodedotjs, color: '#339933' },
+      typescript: { icon: SiTypescript, color: '#3178C6' },
+      javascript: { icon: SiJavascript, color: '#F7DF1E' },
+      python: { icon: SiPython, color: '#3776AB' },
+      mongodb: { icon: SiMongodb, color: '#47A248' },
+      postgresql: { icon: SiPostgresql, color: '#4169E1' },
+      docker: { icon: SiDocker, color: '#2496ED' },
+      tailwind: { icon: SiTailwindcss, color: '#06B6D4' },
+      tailwindcss: { icon: SiTailwindcss, color: '#06B6D4' },
+      git: { icon: SiGit, color: '#F05032' },
+      aws: { icon: SiAmazonwebservices, color: '#232F3E' },
+      figma: { icon: SiFigma, color: '#F24E1E' },
+      vue: { icon: SiVuedotjs, color: '#4FC08D' },
+      vuejs: { icon: SiVuedotjs, color: '#4FC08D' },
+      php: { icon: SiPhp, color: '#777BB4' },
+      java: { icon: FaJava, color: '#007396' },
+      gcp: { icon: SiGooglecloud, color: '#4285F4' },
+      googlecloud: { icon: SiGooglecloud, color: '#4285F4' },
+      azure: { icon: FaMicrosoft, color: '#00A4EF' },
+      kubernetes: { icon: SiKubernetes, color: '#326CE5' },
+      k8s: { icon: SiKubernetes, color: '#326CE5' },
+      rabbitmq: { icon: SiRabbitmq, color: '#FF6600' },
+      mysql: { icon: SiMysql, color: '#4479A1' },
+      redis: { icon: SiRedis, color: '#DC382D' },
+      nextjs: { icon: SiNextdotjs, color: '#000000' },
+      nestjs: { icon: SiNestjs, color: '#E0234E' },
+      flutter: { icon: SiFlutter, color: '#02569B' },
+      firebase: { icon: SiFirebase, color: '#FFCA28' },
+      supabase: { icon: SiSupabase, color: '#3ECF8E' },
+      graphql: { icon: SiGraphql, color: '#E10098' },
+      redux: { icon: SiRedux, color: '#764ABC' },
+      sass: { icon: SiSass, color: '#CC6699' },
+      mui: { icon: SiMui, color: '#007FFF' },
+      wordpress: { icon: SiWordpress, color: '#21759B' },
+      laravel: { icon: SiLaravel, color: '#FF2D20' },
+      springboot: { icon: SiSpringboot, color: '#6DB33F' },
+      linux: { icon: SiLinux, color: '#FCC624' },
+      nginx: { icon: SiNginx, color: '#009639' },
+      express: { icon: SiExpress, color: '#000000' },
+      prisma: { icon: SiPrisma, color: '#2D3748' },
     };
-    const Icon = icons[iconName?.toLowerCase()];
-    return Icon ? <Icon className="w-6 h-6" /> : null;
+    
+    const skillData = icons[iconName?.toLowerCase()];
+    if (!skillData) return null;
+    
+    const IconComponent = skillData.icon;
+    return <IconComponent className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" style={{ color: skillData.color }} />;
   };
 
   const categories = ['frontend', 'backend', 'tools', 'other'];
 
-  const groupedSkills = categories.reduce((acc, category) => {
-    acc[category] = skills.filter(s => s.category === category);
-    return acc;
-  }, {});
+  const categoryTitles = {
+    frontend: 'FE',
+    backend: 'BE',
+    tools: 'DO', // DevOps/Cloud mapping
+    other: 'DB'  // Database mapping
+  };
 
   // Default skills if none provided
   const defaultSkills = [
-    { id: 1, name: 'React', category: 'frontend', proficiency: 90, icon: 'react' },
-    { id: 2, name: 'TypeScript', category: 'frontend', proficiency: 85, icon: 'typescript' },
-    { id: 3, name: 'Node.js', category: 'backend', proficiency: 88, icon: 'nodejs' },
-    { id: 4, name: 'Python', category: 'backend', proficiency: 80, icon: 'python' },
-    { id: 5, name: 'MongoDB', category: 'backend', proficiency: 82, icon: 'mongodb' },
-    { id: 6, name: 'Docker', category: 'tools', proficiency: 75, icon: 'docker' },
+    { id: 1, name: 'React', category: 'frontend', icon: 'react' },
+    { id: 2, name: 'Next.js', category: 'frontend', icon: 'nextjs' },
+    { id: 3, name: 'TypeScript', category: 'frontend', icon: 'typescript' },
+    { id: 4, name: 'Tailwind CSS', category: 'frontend', icon: 'tailwind' },
+    { id: 5, name: 'Node.js', category: 'backend', icon: 'nodejs' },
+    { id: 6, name: 'Python', category: 'backend', icon: 'python' },
+    { id: 7, name: 'Docker', category: 'tools', icon: 'docker' },
+    { id: 8, name: 'AWS', category: 'tools', icon: 'aws' },
+    { id: 9, name: 'PostgreSQL', category: 'other', icon: 'postgresql' },
   ];
 
   const displaySkills = skills.length > 0 ? skills : defaultSkills;
@@ -66,78 +127,82 @@ const Skills = ({ skills = [] }) => {
   }, {});
 
   return (
-    <section id="skills" className="section">
-      <div className="container-custom">
+    <section id="skills" className="relative py-20 bg-slate-50 dark:bg-[#0B0F19] overflow-hidden transition-colors duration-500">
+      <div className="container-custom relative z-10 w-full max-w-7xl mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
+          className="flex flex-col gap-12"
         >
           {/* Section header */}
-          <div className="text-center mb-16">
+          <div className="text-center md:text-left">
             <motion.span 
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.2 }}
-              className="badge mb-4"
+              className="inline-block uppercase tracking-[0.2em] text-xs font-semibold text-primary-600 dark:text-cyan-400 mb-3"
             >
-              {t('skills.badge')}
+              Tech Stack
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.3 }}
-              className="text-3xl md:text-4xl font-display font-bold"
+              className="text-3xl md:text-4xl font-display font-bold text-slate-900 dark:text-white"
             >
-              {t('skills.title')} <span className="gradient-text">{t('skills.titleHighlight')}</span>
+              Technologies & Tools
             </motion.h2>
           </div>
 
-          {/* Skills grid by category */}
-          <div className="space-y-12">
+          {/* Core Layout: Rows of categories */}
+          <div className="flex flex-col gap-6 md:gap-8">
             {categories.map((category, categoryIndex) => {
               const categorySkills = displayGrouped[category];
               if (categorySkills.length === 0) return null;
 
+              // Override category titles for better SaaS terminology if using default categories
+              let displayCategoryTitle = t(`skills.${category}`);
+              if (category === 'tools') displayCategoryTitle = 'DevOps & Cloud';
+              if (category === 'other') displayCategoryTitle = 'Database & Architecture';
+
               return (
                 <motion.div
                   key={category}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 + categoryIndex * 0.1 }}
+                  className="flex flex-col md:flex-row gap-4 md:gap-8 items-start relative group"
                 >
-                  <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-6">
-                    {t(`skills.${category}`)}
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {/* Category Label (Left Side) - Fixed width on Desktop */}
+                  <div className="w-full md:w-48 lg:w-56 flex-shrink-0 pt-2 border-b md:border-b-0 border-slate-200 dark:border-white/10 md:border-r md:pr-4">
+                    <h3 className="text-sm tracking-wider uppercase font-semibold text-slate-500 dark:text-slate-400 pb-2 md:pb-0">
+                      {displayCategoryTitle}
+                    </h3>
+                  </div>
+
+                  {/* Tech Chips (Right Side) - Flex Wrap */}
+                  <div className="flex flex-wrap gap-2.5 md:gap-3 flex-1">
                     {categorySkills.map((skill, index) => (
                       <motion.div
                         key={skill.id}
-                        initial={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.95 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ delay: 0.4 + index * 0.05 }}
-                        whileHover={{ y: -4 }}
-                        className="p-5 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 shadow-sm hover:shadow-lg transition-all duration-300"
+                        transition={{ delay: 0.4 + index * 0.03 }}
+                        className="cursor-pointer"
                       >
-                        <div className="flex items-center gap-4 mb-3">
-                          <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/30 dark:to-accent-900/30 text-primary-600 dark:text-primary-400">
-                            {getSkillIcon(skill.icon)}
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-semibold">{skill.name}</h4>
-                          </div>
-                          <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
-                            {skill.proficiency}%
-                          </span>
-                        </div>
-                        <div className="skill-bar">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={isInView ? { width: `${skill.proficiency}%` } : {}}
-                            transition={{ duration: 1, delay: 0.5 + index * 0.05 }}
-                            className="skill-progress"
-                          />
+                        {/* Compact Chip Glass Card */}
+                        <div className="relative group/chip tech-chip bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-white/5 hover:border-primary-300 dark:hover:border-white/20 rounded-lg px-3 py-2 flex items-center gap-2.5 transition-all duration-200 hover:scale-105 hover:-translate-y-0.5 shadow-sm hover:shadow-md">
+                           {/* Hover Neon Glow Effect */}
+                           <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary-500/0 to-cyan-500/0 group-hover/chip:from-primary-500/5 group-hover/chip:to-cyan-500/5 opacity-0 group-hover/chip:opacity-100 transition-opacity duration-200"></div>
+                           
+                           <div className="relative z-10 flex items-center justify-center filter group-hover/chip:brightness-110 transition-all duration-200 scale-90 group-hover/chip:scale-100">
+                              {getSkillIcon(skill.icon)}
+                           </div>
+                           <h4 className="relative z-10 font-medium text-slate-700 dark:text-slate-300 text-sm whitespace-nowrap group-hover/chip:text-slate-900 dark:group-hover/chip:text-white transition-colors duration-200">
+                              {skill.name}
+                           </h4>
                         </div>
                       </motion.div>
                     ))}
@@ -148,6 +213,13 @@ const Skills = ({ skills = [] }) => {
           </div>
         </motion.div>
       </div>
+
+      <style dangerouslySetInnerHTML={{__html: `
+        .tech-chip {
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+        }
+      `}} />
     </section>
   );
 };

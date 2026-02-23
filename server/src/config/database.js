@@ -1,5 +1,5 @@
-import Database from 'better-sqlite3';
 import bcrypt from 'bcryptjs';
+import Database from 'better-sqlite3';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -32,14 +32,25 @@ const initDatabase = () => {
       title TEXT DEFAULT 'Full Stack Developer',
       bio TEXT DEFAULT 'A passionate developer creating amazing web experiences.',
       avatar TEXT,
+      avatar2 TEXT,
       email TEXT DEFAULT 'hello@example.com',
       phone TEXT,
       location TEXT DEFAULT 'New York, USA',
-      resumeUrl TEXT,
+      telegramId TEXT,
       heroTagline TEXT DEFAULT 'Building the future, one line of code at a time.',
       updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
+
+  // Migrate to add avatar2 if it doesn't exist
+  try {
+    const tableInfo = db.prepare("PRAGMA table_info(profile)").all();
+    if (!tableInfo.some(col => col.name === 'avatar2')) {
+      db.prepare("ALTER TABLE profile ADD COLUMN avatar2 TEXT").run();
+    }
+  } catch (error) {
+    console.error('Migration error (avatar2):', error);
+  }
 
   // Skills table
   db.exec(`

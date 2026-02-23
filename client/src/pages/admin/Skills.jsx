@@ -1,12 +1,105 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { FaJava, FaMicrosoft } from 'react-icons/fa';
 import { HiCheck, HiPencil, HiPlus, HiTrash, HiX } from 'react-icons/hi';
+import {
+  SiAmazonwebservices,
+  SiDocker,
+  SiExpress,
+  SiFigma,
+  SiFirebase,
+  SiFlutter,
+  SiGit,
+  SiGooglecloud,
+  SiGraphql,
+  SiJavascript,
+  SiKubernetes,
+  SiLaravel,
+  SiLinux,
+  SiMongodb,
+  SiMui,
+  SiMysql,
+  SiNestjs,
+  SiNextdotjs,
+  SiNginx,
+  SiNodedotjs,
+  SiPhp,
+  SiPostgresql,
+  SiPrisma,
+  SiPython,
+  SiRabbitmq,
+  SiReact,
+  SiRedis,
+  SiRedux,
+  SiSass,
+  SiSpringboot,
+  SiSupabase,
+  SiTailwindcss,
+  SiTypescript,
+  SiVuedotjs,
+  SiWordpress
+} from 'react-icons/si';
 import { skillsService } from '../../services/api';
 
 const categoryOptions = ['frontend', 'backend', 'tools', 'other'];
-const iconOptions = ['react', 'nodejs', 'typescript', 'javascript', 'python', 'mongodb', 'postgresql', 'docker', 'tailwind', 'git', 'aws', 'figma'];
+const iconOptions = [
+  'react', 'nodejs', 'typescript', 'javascript', 'python', 'mongodb', 'postgresql', 
+  'docker', 'tailwind', 'git', 'aws', 'figma', 'vuejs', 'php', 'java', 'googlecloud', 
+  'azure', 'kubernetes', 'rabbitmq', 'mysql', 'redis', 'nextjs', 'nestjs', 'flutter', 
+  'firebase', 'supabase', 'graphql', 'redux', 'sass', 'mui', 'wordpress', 'laravel', 
+  'springboot', 'linux', 'nginx', 'express', 'prisma'
+];
 
 const Skills = () => {
+  const getSkillIcon = (iconName) => {
+    const icons = {
+      react: SiReact,
+      node: SiNodedotjs,
+      nodejs: SiNodedotjs,
+      typescript: SiTypescript,
+      javascript: SiJavascript,
+      python: SiPython,
+      mongodb: SiMongodb,
+      postgresql: SiPostgresql,
+      docker: SiDocker,
+      tailwind: SiTailwindcss,
+      tailwindcss: SiTailwindcss,
+      git: SiGit,
+      aws: SiAmazonwebservices,
+      figma: SiFigma,
+      vue: SiVuedotjs,
+      vuejs: SiVuedotjs,
+      php: SiPhp,
+      java: FaJava,
+      gcp: SiGooglecloud,
+      googlecloud: SiGooglecloud,
+      azure: FaMicrosoft,
+      kubernetes: SiKubernetes,
+      k8s: SiKubernetes,
+      rabbitmq: SiRabbitmq,
+      mysql: SiMysql,
+      redis: SiRedis,
+      nextjs: SiNextdotjs,
+      nestjs: SiNestjs,
+      flutter: SiFlutter,
+      firebase: SiFirebase,
+      supabase: SiSupabase,
+      graphql: SiGraphql,
+      redux: SiRedux,
+      sass: SiSass,
+      mui: SiMui,
+      wordpress: SiWordpress,
+      laravel: SiLaravel,
+      springboot: SiSpringboot,
+      linux: SiLinux,
+      nginx: SiNginx,
+      express: SiExpress,
+      prisma: SiPrisma,
+    };
+    const Icon = icons[iconName?.toLowerCase()];
+    return Icon ? <Icon className="w-5 h-5" /> : null;
+  };
+
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -103,9 +196,11 @@ const Skills = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     className="p-4 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 group"
                   >
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        {skill.icon && <span className="text-xl">⚡</span>}
+                        <div className="p-2 rounded-lg bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400">
+                          {getSkillIcon(skill.icon) || <span className="text-xl">⚡</span>}
+                        </div>
                         <span className="font-medium">{skill.name}</span>
                       </div>
                       <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -117,10 +212,6 @@ const Skills = () => {
                         </button>
                       </div>
                     </div>
-                    <div className="skill-bar">
-                      <div className="skill-progress" style={{ width: `${skill.proficiency}%` }} />
-                    </div>
-                    <p className="text-sm text-slate-500 mt-2">{skill.proficiency}%</p>
                   </motion.div>
                 ))}
               </div>

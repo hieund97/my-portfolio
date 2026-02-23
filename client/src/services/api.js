@@ -45,6 +45,13 @@ export const profileService = {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
+  uploadAvatar2: (file) => {
+    const formData = new FormData();
+    formData.append('avatar2', file);
+    return api.post('/profile/avatar2', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
 };
 
 export const skillsService = {

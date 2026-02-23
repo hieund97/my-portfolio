@@ -10,12 +10,15 @@
     "projects": "Dự án",
     "experience": "Kinh nghiệm",
     "contact": "Liên hệ",
+    "pricing": "Báo giá",
     "admin": "Quản trị"
   },
   "hero": {
     "greeting": "Xin chào, tôi là",
+    "getQuote": "Nhận báo giá",
     "viewWork": "Xem dự án",
-    "downloadResume": "Tải CV"
+    "contact": "Liên hệ",
+    "telegramContact": "Liên hệ qua Telegram"
   },
   "about": {
     "badge": "Giới thiệu",
@@ -54,6 +57,7 @@
     "location": "Địa điểm",
     "email": "Email",
     "phone": "Điện thoại",
+    "telegram": "Telegram",
     "form": {
       "name": "Họ tên",
       "namePlaceholder": "Nguyễn Văn A",
@@ -68,6 +72,85 @@
       "success": "Tin nhắn đã được gửi thành công! Tôi sẽ phản hồi sớm.",
       "error": "Gửi tin nhắn thất bại. Vui lòng thử lại."
     }
+  },
+  "pricing": {
+    "badge": "Báo giá",
+    "title": "Ước tính dự án",
+    "subtitle": "Nhận báo giá tức thì cho dự án của bạn. Chọn yêu cầu và xem giá theo thời gian thực.",
+    "steps": {
+      "projectType": "Loại dự án",
+      "features": "Tính năng",
+      "budget": "Ngân sách",
+      "contact": "Liên hệ"
+    },
+    "step1Title": "Bạn cần loại dự án nào?",
+    "step2Title": "Chọn tính năng cho",
+    "step2Desc": "Mỗi tính năng sẽ cộng thêm vào giá cơ bản và thời gian.",
+    "step3Title": "Ngân sách dự kiến của bạn?",
+    "step3Desc": "Điều này giúp tôi đưa ra giải pháp phù hợp nhất. (Tùy chọn)",
+    "step4Title": "Thông tin liên hệ của bạn?",
+    "step4Desc": "Để lại thông tin và tôi sẽ gửi lại hợp đồng chi tiết.",
+    "from": "Từ",
+    "back": "Quay lại",
+    "next": "Tiếp tục",
+    "getQuote": "Nhận báo giá",
+    "name": "Họ tên",
+    "namePlaceholder": "Tên của bạn",
+    "email": "Email",
+    "emailPlaceholder": "you@email.com",
+    "projectDetails": "Chi tiết dự án (tùy chọn)",
+    "projectDetailsPlaceholder": "Mô tả thêm về dự án của bạn...",
+    "estimateTitle": "Ước tính trực tiếp",
+    "estimatedPrice": "Giá ước tính",
+    "selectType": "Chọn loại dự án",
+    "estimatedDelivery": "Thời gian dự kiến",
+    "days": "ngày",
+    "summary": "Tóm tắt",
+    "total": "Tổng",
+    "selectTypePrompt": "Chọn loại dự án để xem ước tính.",
+    "types": {
+      "landing": {
+        "name": "Trang giới thiệu",
+        "desc": "Trang đơn cho quảng cáo hoặc giới thiệu"
+      },
+      "business": {
+        "name": "Website doanh nghiệp",
+        "desc": "Website nhiều trang cho công ty"
+      },
+      "ecommerce": {
+        "name": "Thương mại điện tử",
+        "desc": "Cửa hàng trực tuyến với thanh toán"
+      },
+      "webapp": {
+        "name": "Ứng dụng Web",
+        "desc": "Ứng dụng full-stack tùy chỉnh"
+      }
+    },
+    "features": {
+      "responsive": "Thiết kế đáp ứng",
+      "animation": "Hiệu ứng & Chuyển động",
+      "seo": "Tối ưu SEO",
+      "contactForm": "Form liên hệ",
+      "analytics": "Cài đặt phân tích",
+      "cms": "Tích hợp CMS",
+      "blog": "Hệ thống Blog",
+      "multiLang": "Đa ngôn ngữ",
+      "payment": "Cổng thanh toán",
+      "inventory": "Quản lý kho hàng",
+      "auth": "Đăng nhập & Tài khoản",
+      "admin": "Bảng quản trị",
+      "api": "REST / GraphQL API",
+      "realtime": "Tính năng thời gian thực",
+      "deploy": "CI/CD & Triển khai",
+      "testing": "Bộ kiểm thử"
+    },
+    "budgetRanges": [
+      "Dưới 25.000.000₫",
+      "25.000.000₫ – 75.000.000₫",
+      "75.000.000₫ – 125.000.000₫",
+      "125.000.000₫ – 250.000.000₫",
+      "Trên 250.000.000₫"
+    ]
   },
   "footer": {
     "rights": "Bảo lưu mọi quyền.",
