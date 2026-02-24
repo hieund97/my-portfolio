@@ -189,46 +189,48 @@ const Hero = ({ profile = {}, socialLinks = [] }) => {
             </div>
 
             {/* CTAs & Socials Group */}
-            <div className="flex flex-col sm:flex-row items-center gap-6 pt-4 w-full">
-              <div className="flex flex-wrap justify-center lg:justify-start gap-4 w-full">
+            <div className="flex flex-col xl:flex-row items-center gap-8 pt-4 w-full">
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full">
                 {/* Primary CTA */}
                 <button 
                   onClick={() => navigate('/pricing')}
-                  className="group relative px-8 py-3.5 bg-gradient-to-r from-primary-600 to-cyan-600 text-white rounded-xl font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(14,165,233,0.3)] dark:shadow-[0_4px_25px_rgba(14,165,233,0.5)] flex-grow sm:flex-grow-0 text-center justify-center"
+                  className="group relative w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary-600 to-cyan-600 text-white rounded-xl font-bold overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_4px_24px_rgba(14,165,233,0.35)] flex items-center justify-center"
                 >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    <HiArrowRight className="w-5 h-5 hidden sm:block" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    <HiArrowRight className="w-5 h-5" />
                     {t('hero.getQuote')}
                   </span>
                 </button>
 
                 {/* Secondary CTAs */}
-                <button 
-                  onClick={() => scrollToSection('projects')}
-                  className="px-6 py-3.5 glass-panel border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all hover:scale-105 active:scale-95 flex items-center justify-center flex-1 sm:flex-none"
-                >
-                  {t('hero.viewWork')}
-                </button>
+                <div className="flex gap-4 w-full sm:w-auto">
+                  <button 
+                    onClick={() => scrollToSection('projects')}
+                    className="flex-1 sm:flex-none px-6 py-4 glass-panel border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white rounded-xl font-bold hover:bg-slate-100 dark:hover:bg-white/10 transition-all hover:scale-105 active:scale-95 flex items-center justify-center min-w-[140px]"
+                  >
+                    {t('hero.viewWork')}
+                  </button>
 
-                <button 
-                  onClick={() => scrollToSection('contact')}
-                  className="px-6 py-3.5 glass-panel border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all hover:scale-105 active:scale-95 flex items-center justify-center flex-1 sm:flex-none"
-                >
-                  {t('hero.contact')}
-                </button>
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="flex-1 sm:flex-none px-6 py-4 glass-panel border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white rounded-xl font-bold hover:bg-slate-100 dark:hover:bg-white/10 transition-all hover:scale-105 active:scale-95 flex items-center justify-center min-w-[140px]"
+                  >
+                    {t('hero.contact')}
+                  </button>
+                </div>
               </div>
 
-              <div className="h-12 w-px bg-slate-200 dark:bg-white/10 hidden xl:block mx-2"></div>
+              <div className="h-10 w-px bg-slate-200 dark:bg-white/10 hidden xl:block mx-1"></div>
 
               {/* Minimalist Socials */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center gap-3">
                 {socialLinks.map((link) => (
                   <a
                     key={link.id}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:border-primary-200 dark:hover:border-primary-500/50 transition-all duration-300"
+                    className="p-3.5 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:border-primary-200 dark:hover:border-primary-500/50 transition-all duration-300"
                   >
                     {getSocialIcon(link.platform)}
                   </a>
