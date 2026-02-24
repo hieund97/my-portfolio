@@ -84,6 +84,7 @@ export const experienceService = {
   create: (data) => api.post('/experience', data),
   update: (id, data) => api.put(`/experience/${id}`, data),
   delete: (id) => api.delete(`/experience/${id}`),
+  reorder: (items) => api.put('/experience/reorder/batch', { items }),
 };
 
 export const socialService = {
