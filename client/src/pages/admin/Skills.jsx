@@ -112,25 +112,31 @@ const Skills = () => {
     // Custom SVG for specific icons not in library
     if (iconName?.toLowerCase() === 'momo') {
       return (
-        <svg viewBox="0 0 24 24" className={`${size} fill-current text-[#ae196e]`}>
-          <path d="M18.5 2h-13C3.57 2 2 3.57 2 5.5v13c0 1.93 1.57 3.5 3.5 3.5h13c1.93 0 3.5-1.57 3.5-3.5v-13c0-1.93-1.57-3.5-3.5-3.5zM9 17H7v-7h2v7zm4 0h-2v-7h2v7zm4 0h-2v-7h2v7zm-8-9H7V6h2v2zm4 0h-2V6h2v2zm4 0h-2V6h2v2z"/>
-        </svg>
+        <img 
+          src="https://cdn.brandfetch.io/idn4xaCzTm/w/180/h/180/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1734358540621" 
+          alt="MoMo" 
+          className={size}
+        />
       );
     }
     
     if (iconName?.toLowerCase() === 'vnpay') {
       return (
-        <svg viewBox="0 0 24 24" className={`${size} fill-current text-[#005baa]`}>
-          <path d="M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10zM7 7v10h2l3-6 3 6h2V7h-2v6l-3-6-3 6V7H7z"/>
-        </svg>
+        <img 
+          src="https://cdn.brandfetch.io/idV02t6WJs/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1766490355643" 
+          alt="VNPay" 
+          className={size}
+        />
       );
     }
 
     if (iconName?.toLowerCase() === 'payoo') {
       return (
-        <svg viewBox="0 0 24 24" className={`${size} fill-current text-[#79bc42]`}>
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v10h-2V7zm-4 4h2l1 2 1-2h2l-2 4 2 4H7l1-2 1 2h2l-2-4 2-4z"/>
-        </svg>
+        <img 
+          src="https://cdn.brandfetch.io/id1vxw7iJ3/w/1200/h/1200/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1765160054568" 
+          alt="Payoo" 
+          className={size}
+        />
       );
     }
 
