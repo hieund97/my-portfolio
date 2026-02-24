@@ -45,7 +45,7 @@ import Select, { components } from 'react-select';
 import { useTheme } from '../../contexts/ThemeContext';
 import { skillsService } from '../../services/api';
 
-const categoryOptions = ['frontend', 'backend', 'tools', 'other'];
+const categoryOptions = ['frontend', 'backend', 'payments', 'tools', 'other'];
 const iconOptions = [
   'react', 'nodejs', 'typescript', 'javascript', 'python', 'mongodb', 'postgresql', 
   'docker', 'tailwind', 'git', 'aws', 'figma', 'vuejs', 'php', 'java', 'googlecloud', 

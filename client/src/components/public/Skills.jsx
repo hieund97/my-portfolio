@@ -133,11 +133,12 @@ const Skills = ({ skills = [] }) => {
   };
 
 
-  const categories = ['frontend', 'backend', 'tools', 'other'];
+  const categories = ['frontend', 'backend', 'payments', 'tools', 'other'];
 
   const categoryTitles = {
     frontend: 'FE',
     backend: 'BE',
+    payments: 'PA',
     tools: 'DO', // DevOps/Cloud mapping
     other: 'DB'  // Database mapping
   };
