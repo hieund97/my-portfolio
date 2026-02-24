@@ -70,3 +70,4 @@ temp/
 
 # (Giữ lại markdown, csv, scripts trong .agent)
 # Không ignore toàn bộ .agent vì bạn đang dùng làm knowledge base
+deploy.md

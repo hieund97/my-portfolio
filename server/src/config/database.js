@@ -42,14 +42,25 @@ const initDatabase = () => {
     )
   `);
 
-  // Migrate to add avatar2 if it doesn't exist
+  // Migrate to add missing columns in profile table
   try {
     const tableInfo = db.prepare("PRAGMA table_info(profile)").all();
-    if (!tableInfo.some(col => col.name === 'avatar2')) {
+    const columns = tableInfo.map(col => col.name);
+    
+    if (!columns.includes('avatar2')) {
       db.prepare("ALTER TABLE profile ADD COLUMN avatar2 TEXT").run();
+      console.log('Added avatar2 column to profile');
+    }
+    if (!columns.includes('telegramId')) {
+      db.prepare("ALTER TABLE profile ADD COLUMN telegramId TEXT").run();
+      console.log('Added telegramId column to profile');
+    }
+    if (!columns.includes('heroTagline')) {
+      db.prepare("ALTER TABLE profile ADD COLUMN heroTagline TEXT DEFAULT 'Building the future, one line of code at a time.'").run();
+      console.log('Added heroTagline column to profile');
     }
   } catch (error) {
-    console.error('Migration error (avatar2):', error);
+    console.error('Migration error (profile):', error);
   }
 
   // Skills table
@@ -63,6 +74,17 @@ const initDatabase = () => {
       displayOrder INTEGER DEFAULT 0
     )
   `);
+
+  // Migrate skills for displayOrder
+  try {
+    const tableInfo = db.prepare("PRAGMA table_info(skills)").all();
+    if (!tableInfo.some(col => col.name === 'displayOrder')) {
+      db.prepare("ALTER TABLE skills ADD COLUMN displayOrder INTEGER DEFAULT 0").run();
+      console.log('Added displayOrder column to skills');
+    }
+  } catch (error) {
+    console.error('Migration error (skills):', error);
+  }
 
   // Projects table
   db.exec(`
@@ -80,6 +102,17 @@ const initDatabase = () => {
     )
   `);
 
+  // Migrate projects for displayOrder
+  try {
+    const tableInfo = db.prepare("PRAGMA table_info(projects)").all();
+    if (!tableInfo.some(col => col.name === 'displayOrder')) {
+      db.prepare("ALTER TABLE projects ADD COLUMN displayOrder INTEGER DEFAULT 0").run();
+      console.log('Added displayOrder column to projects');
+    }
+  } catch (error) {
+    console.error('Migration error (projects):', error);
+  }
+
   // Experience table
   db.exec(`
     CREATE TABLE IF NOT EXISTS experience (
@@ -93,6 +126,17 @@ const initDatabase = () => {
       displayOrder INTEGER DEFAULT 0
     )
   `);
+
+  // Migrate experience for displayOrder
+  try {
+    const tableInfo = db.prepare("PRAGMA table_info(experience)").all();
+    if (!tableInfo.some(col => col.name === 'displayOrder')) {
+      db.prepare("ALTER TABLE experience ADD COLUMN displayOrder INTEGER DEFAULT 0").run();
+      console.log('Added displayOrder column to experience');
+    }
+  } catch (error) {
+    console.error('Migration error (experience):', error);
+  }
 
   // Social links table
   db.exec(`
