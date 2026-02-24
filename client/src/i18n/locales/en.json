@@ -109,6 +109,7 @@
     "summary": "Summary",
     "total": "Total",
     "selectTypePrompt": "Select a project type to see your estimate.",
+    "disclaimer": "The cost is only an estimate, not an exact figure. We will contact you back to discuss the specific project and your specific desires.",
     "types": {
       "landing": {
         "name": "Landing Page",

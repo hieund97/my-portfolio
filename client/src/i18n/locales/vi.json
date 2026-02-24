@@ -109,6 +109,7 @@
     "summary": "Tóm tắt",
     "total": "Tổng",
     "selectTypePrompt": "Chọn loại dự án để xem ước tính.",
+    "disclaimer": "Chi phí chỉ là ước tính, không phải con số chính xác, chúng tôi sẽ liên hệ lại để trao đổi cụ thể về dự án cũng như mong muốn cụ thể của bạn",
     "types": {
       "landing": {
         "name": "Trang giới thiệu",

@@ -652,6 +652,12 @@ User Message: ${contact.message}
                       )}
                     </div>
                   </div>
+                  {/* Disclaimer */}
+                  <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5">
+                    <p className="text-xs text-slate-400 dark:text-slate-500 italic leading-relaxed">
+                      * {t('pricing.disclaimer')}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             </div>
