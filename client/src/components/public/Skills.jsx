@@ -129,7 +129,7 @@ const Skills = ({ skills = [] }) => {
         <img 
           src="https://cdn.brandfetch.io/id1vxw7iJ3/w/1200/h/1200/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1765160054568" 
           alt="Payoo" 
-          className={size}
+          className={iconClass}
         />
       );
     }
