@@ -1,31 +1,32 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import {
-    HiBriefcase,
-    HiCollection,
-    HiHome,
-    HiLightningBolt,
-    HiLink,
-    HiLogout,
-    HiMail,
-    HiMenu,
-    HiMoon, HiSun,
-    HiUser,
-    HiX
+  HiBriefcase,
+  HiCollection,
+  HiHome,
+  HiLightningBolt,
+  HiLink,
+  HiLogout,
+  HiMail,
+  HiMenu,
+  HiMoon, HiSun,
+  HiUser,
+  HiX
 } from 'react-icons/hi';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { ADMIN_PATH } from '../../App';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { messagesService } from '../../services/api';
 
 const navItems = [
-  { name: 'Dashboard', path: '/admin', icon: HiHome, end: true },
-  { name: 'Profile', path: '/admin/profile', icon: HiUser },
-  { name: 'Skills', path: '/admin/skills', icon: HiLightningBolt },
-  { name: 'Projects', path: '/admin/projects', icon: HiCollection },
-  { name: 'Experience', path: '/admin/experience', icon: HiBriefcase },
-  { name: 'Social Links', path: '/admin/social', icon: HiLink },
-  { name: 'Messages', path: '/admin/messages', icon: HiMail },
+  { name: 'Dashboard', path: `/${ADMIN_PATH}`, icon: HiHome, end: true },
+  { name: 'Profile', path: `/${ADMIN_PATH}/profile`, icon: HiUser },
+  { name: 'Skills', path: `/${ADMIN_PATH}/skills`, icon: HiLightningBolt },
+  { name: 'Projects', path: `/${ADMIN_PATH}/projects`, icon: HiCollection },
+  { name: 'Experience', path: `/${ADMIN_PATH}/experience`, icon: HiBriefcase },
+  { name: 'Social Links', path: `/${ADMIN_PATH}/social`, icon: HiLink },
+  { name: 'Messages', path: `/${ADMIN_PATH}/messages`, icon: HiMail },
 ];
 
 const AdminLayout = () => {
@@ -52,8 +53,9 @@ const AdminLayout = () => {
 
   const handleLogout = () => {
     logout();
-    navigate('/admin/login');
+    navigate(`/${ADMIN_PATH}/login`);
   };
+
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950">

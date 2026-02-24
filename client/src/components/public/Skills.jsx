@@ -22,6 +22,7 @@ import {
   SiNextdotjs,
   SiNginx,
   SiNodedotjs,
+  SiPaypal,
   SiPhp,
   SiPostgresql,
   SiPrisma,
@@ -32,6 +33,7 @@ import {
   SiRedux,
   SiSass,
   SiSpringboot,
+  SiStripe,
   SiSupabase,
   SiTailwindcss,
   SiTypescript,
@@ -89,14 +91,47 @@ const Skills = ({ skills = [] }) => {
       nginx: { icon: SiNginx, color: '#009639' },
       express: { icon: SiExpress, color: '#000000' },
       prisma: { icon: SiPrisma, color: '#2D3748' },
+      stripe: { icon: SiStripe, color: '#008CDD' },
+      paypal: { icon: SiPaypal, color: '#003087' },
+      vnpay: { icon: null, color: '#005baa' },
+      momo: { icon: null, color: '#ae196e' },
+      payoo: { icon: null, color: '#79bc42' },
     };
     
-    const skillData = icons[iconName?.toLowerCase()];
-    if (!skillData) return null;
+    const iconKey = iconName?.toLowerCase();
+    const skillData = icons[iconKey];
+    if (!skillData && !['momo', 'vnpay', 'payoo'].includes(iconKey)) return null;
     
+    const iconClass = "w-8 h-8 transition-transform duration-300 group-hover:scale-110";
+
+    if (iconKey === 'momo') {
+      return (
+        <svg viewBox="0 0 24 24" className={iconClass} style={{ fill: icons.momo.color }}>
+          <path d="M18.5 2h-13C3.57 2 2 3.57 2 5.5v13c0 1.93 1.57 3.5 3.5 3.5h13c1.93 0 3.5-1.57 3.5-3.5v-13c0-1.93-1.57-3.5-3.5-3.5zM9 17H7v-7h2v7zm4 0h-2v-7h2v7zm4 0h-2v-7h2v7zm-8-9H7V6h2v2zm4 0h-2V6h2v2zm4 0h-2V6h2v2z"/>
+        </svg>
+      );
+    }
+
+    if (iconKey === 'vnpay') {
+      return (
+        <svg viewBox="0 0 24 24" className={iconClass} style={{ fill: icons.vnpay.color }}>
+          <path d="M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10zM7 7v10h2l3-6 3 6h2V7h-2v6l-3-6-3 6V7H7z"/>
+        </svg>
+      );
+    }
+
+    if (iconKey === 'payoo') {
+      return (
+        <svg viewBox="0 0 24 24" className={iconClass} style={{ fill: icons.payoo.color }}>
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v10h-2V7zm-4 4h2l1 2 1-2h2l-2 4 2 4H7l1-2 1 2h2l-2-4 2-4z"/>
+        </svg>
+      );
+    }
+
     const IconComponent = skillData.icon;
-    return <IconComponent className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" style={{ color: skillData.color }} />;
+    return <IconComponent className={iconClass} style={{ color: skillData.color }} />;
   };
+
 
   const categories = ['frontend', 'backend', 'tools', 'other'];
 

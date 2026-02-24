@@ -8,6 +8,8 @@ import {
     HiMail,
     HiUser
 } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
+import { ADMIN_PATH } from '../../App';
 import {
     experienceService, messagesService,
     profileService,
@@ -138,8 +140,8 @@ const Dashboard = () => {
       >
         <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <a
-            href="/admin/profile"
+          <Link
+            to={`/${ADMIN_PATH}/profile`}
             className="flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 border border-primary-100 dark:border-primary-800/30 hover:shadow-lg transition-shadow"
           >
             <div className="p-3 rounded-xl bg-white dark:bg-slate-800 shadow-sm">
@@ -149,10 +151,10 @@ const Dashboard = () => {
               <p className="font-semibold">Edit Profile</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Update your info</p>
             </div>
-          </a>
+          </Link>
 
-          <a
-            href="/admin/projects"
+          <Link
+            to={`/${ADMIN_PATH}/projects`}
             className="flex items-center gap-4 p-5 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700/50 hover:shadow-lg transition-shadow"
           >
             <div className="p-3 rounded-xl bg-accent-50 dark:bg-accent-900/30 shadow-sm">
@@ -162,7 +164,7 @@ const Dashboard = () => {
               <p className="font-semibold">Add Project</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">Showcase your work</p>
             </div>
-          </a>
+          </Link>
 
           <a
             href="/"
@@ -184,3 +186,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { HiEye, HiEyeOff, HiLockClosed, HiUser } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import { ADMIN_PATH } from '../../App';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 
@@ -21,7 +22,7 @@ const Login = () => {
 
     try {
       await login(credentials.username, credentials.password);
-      navigate('/admin');
+      navigate(`/${ADMIN_PATH}`);
     } catch (err) {
       setError(err.response?.data?.error || 'Invalid credentials');
     } finally {

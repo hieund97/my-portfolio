@@ -18,6 +18,9 @@ import AdminSocial from './pages/admin/Social';
 // Admin layout
 import AdminLayout from './components/admin/AdminLayout';
 
+// Admin Path constant
+export const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || 'admin';
+
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -31,7 +34,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to={`/${ADMIN_PATH}/login`} replace />;
   }
 
   return children;
@@ -45,9 +48,9 @@ function App() {
       <Route path="/pricing" element={<Pricing />} />
 
       {/* Admin routes */}
-      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path={`/${ADMIN_PATH}/login`} element={<AdminLogin />} />
       <Route
-        path="/admin"
+        path={`/${ADMIN_PATH}`}
         element={
           <ProtectedRoute>
             <AdminLayout />
@@ -70,3 +73,4 @@ function App() {
 }
 
 export default App;
+

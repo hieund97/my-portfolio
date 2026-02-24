@@ -23,10 +23,11 @@ api.interceptors.response.use(
     if (error.response?.status === 401 || error.response?.status === 403) {
       // Only clear token if it's an auth error, not on login attempts
       if (!error.config.url.includes('/auth/login')) {
+        const adminPath = import.meta.env.VITE_ADMIN_PATH || 'admin';
         localStorage.removeItem('token');
-        if (window.location.pathname.startsWith('/admin') && 
+        if (window.location.pathname.startsWith(`/${adminPath}`) && 
             !window.location.pathname.includes('/login')) {
-          window.location.href = '/admin/login';
+          window.location.href = `/${adminPath}/login`;
         }
       }
     }
@@ -35,6 +36,11 @@ api.interceptors.response.use(
 );
 
 // API service functions
+export const authService = {
+  login: (username, password) => api.post('/auth/login', { username, password }),
+  verify: () => api.get('/auth/verify'),
+  changePassword: (data) => api.put('/auth/password', data),
+};
 export const profileService = {
   get: () => api.get('/profile'),
   update: (data) => api.put('/profile', data),

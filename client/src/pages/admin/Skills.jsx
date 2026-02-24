@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { FaJava, FaMicrosoft } from 'react-icons/fa';
-import { HiCheck, HiPencil, HiPlus, HiTrash, HiX } from 'react-icons/hi';
+import { HiCheck, HiCreditCard, HiPencil, HiPlus, HiTrash, HiX } from 'react-icons/hi';
 import {
   SiAmazonwebservices,
   SiDocker,
@@ -23,6 +23,7 @@ import {
   SiNextdotjs,
   SiNginx,
   SiNodedotjs,
+  SiPaypal,
   SiPhp,
   SiPostgresql,
   SiPrisma,
@@ -33,12 +34,15 @@ import {
   SiRedux,
   SiSass,
   SiSpringboot,
+  SiStripe,
   SiSupabase,
   SiTailwindcss,
   SiTypescript,
   SiVuedotjs,
   SiWordpress
 } from 'react-icons/si';
+import Select, { components } from 'react-select';
+import { useTheme } from '../../contexts/ThemeContext';
 import { skillsService } from '../../services/api';
 
 const categoryOptions = ['frontend', 'backend', 'tools', 'other'];
@@ -47,11 +51,13 @@ const iconOptions = [
   'docker', 'tailwind', 'git', 'aws', 'figma', 'vuejs', 'php', 'java', 'googlecloud', 
   'azure', 'kubernetes', 'rabbitmq', 'mysql', 'redis', 'nextjs', 'nestjs', 'flutter', 
   'firebase', 'supabase', 'graphql', 'redux', 'sass', 'mui', 'wordpress', 'laravel', 
-  'springboot', 'linux', 'nginx', 'express', 'prisma'
+  'springboot', 'linux', 'nginx', 'express', 'prisma', 'stripe', 'paypal', 'vnpay', 'momo', 'payoo'
 ];
 
 const Skills = () => {
-  const getSkillIcon = (iconName) => {
+  const { isDark } = useTheme();
+  
+  const getSkillIcon = (iconName, size = "w-5 h-5") => {
     const icons = {
       react: SiReact,
       node: SiNodedotjs,
@@ -95,10 +101,110 @@ const Skills = () => {
       nginx: SiNginx,
       express: SiExpress,
       prisma: SiPrisma,
+      stripe: SiStripe,
+      paypal: SiPaypal,
+      vnpay: HiCreditCard,
+      momo: HiCreditCard,
+      payoo: HiCreditCard,
     };
     const Icon = icons[iconName?.toLowerCase()];
-    return Icon ? <Icon className="w-5 h-5" /> : null;
+    
+    // Custom SVG for specific icons not in library
+    if (iconName?.toLowerCase() === 'momo') {
+      return (
+        <svg viewBox="0 0 24 24" className={`${size} fill-current text-[#ae196e]`}>
+          <path d="M18.5 2h-13C3.57 2 2 3.57 2 5.5v13c0 1.93 1.57 3.5 3.5 3.5h13c1.93 0 3.5-1.57 3.5-3.5v-13c0-1.93-1.57-3.5-3.5-3.5zM9 17H7v-7h2v7zm4 0h-2v-7h2v7zm4 0h-2v-7h2v7zm-8-9H7V6h2v2zm4 0h-2V6h2v2zm4 0h-2V6h2v2z"/>
+        </svg>
+      );
+    }
+    
+    if (iconName?.toLowerCase() === 'vnpay') {
+      return (
+        <svg viewBox="0 0 24 24" className={`${size} fill-current text-[#005baa]`}>
+          <path d="M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10zM7 7v10h2l3-6 3 6h2V7h-2v6l-3-6-3 6V7H7z"/>
+        </svg>
+      );
+    }
+
+    if (iconName?.toLowerCase() === 'payoo') {
+      return (
+        <svg viewBox="0 0 24 24" className={`${size} fill-current text-[#79bc42]`}>
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v10h-2V7zm-4 4h2l1 2 1-2h2l-2 4 2 4H7l1-2 1 2h2l-2-4 2-4z"/>
+        </svg>
+      );
+    }
+
+    return Icon ? <Icon className={size} /> : null;
   };
+
+  const IconOption = (props) => (
+    <components.Option {...props}>
+      <div className="flex items-center gap-3">
+        <div className="flex-shrink-0">
+          {getSkillIcon(props.data.value, "w-4 h-4")}
+        </div>
+        <span>{props.data.label}</span>
+      </div>
+    </components.Option>
+  );
+
+  const IconSingleValue = (props) => (
+    <components.SingleValue {...props}>
+      <div className="flex items-center gap-2">
+        {getSkillIcon(props.data.value, "w-4 h-4")}
+        <span>{props.data.label}</span>
+      </div>
+    </components.SingleValue>
+  );
+
+  const selectStyles = {
+    control: (base, state) => ({
+      ...base,
+      backgroundColor: isDark ? 'rgb(30 41 59 / 0.5)' : '#fff',
+      borderColor: state.isFocused ? 'rgb(99 102 241)' : isDark ? 'rgb(51 65 85 / 0.5)' : 'rgb(241 245 249)',
+      borderRadius: '0.75rem',
+      padding: '0.125rem 0.5rem',
+      boxShadow: 'none',
+      '&:hover': {
+        borderColor: state.isFocused ? 'rgb(99 102 241)' : isDark ? 'rgb(71 85 105)' : 'rgb(226 232 240)',
+      }
+    }),
+    menu: (base) => ({
+      ...base,
+      backgroundColor: isDark ? 'rgb(15 23 42)' : '#fff',
+      border: isDark ? '1px solid rgb(51 65 85)' : '1px solid rgb(241 245 249)',
+      borderRadius: '0.75rem',
+      overflow: 'hidden',
+      zIndex: 100,
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isSelected 
+        ? 'rgb(99 102 241)' 
+        : state.isFocused 
+          ? isDark ? 'rgb(30 41 59)' : 'rgb(241 245 249)'
+          : 'transparent',
+      color: state.isSelected 
+        ? '#fff' 
+        : isDark ? 'rgb(203 213 225)' : 'rgb(51 65 85)',
+      '&:active': {
+        backgroundColor: 'rgb(99 102 241)',
+      }
+    }),
+    singleValue: (base) => ({
+      ...base,
+      color: isDark ? 'rgb(226 232 240)' : 'rgb(51 65 85)',
+    }),
+    input: (base) => ({
+      ...base,
+      color: isDark ? 'rgb(226 232 240)' : 'rgb(51 65 85)',
+    }),
+  };
+
+  const selectOptions = iconOptions.map(icon => ({
+    value: icon,
+    label: icon.charAt(0).toUpperCase() + icon.slice(1)
+  }));
 
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -286,16 +392,15 @@ const Skills = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Icon (optional)</label>
-                  <select
-                    value={formData.icon}
-                    onChange={(e) => setFormData(prev => ({ ...prev, icon: e.target.value }))}
-                    className="input"
-                  >
-                    <option value="">None</option>
-                    {iconOptions.map(icon => (
-                      <option key={icon} value={icon}>{icon}</option>
-                    ))}
-                  </select>
+                  <Select
+                    options={selectOptions}
+                    value={selectOptions.find(opt => opt.value === formData.icon)}
+                    onChange={(opt) => setFormData(prev => ({ ...prev, icon: opt ? opt.value : '' }))}
+                    placeholder="Search or Select Icon..."
+                    isClearable
+                    styles={selectStyles}
+                    components={{ Option: IconOption, SingleValue: IconSingleValue }}
+                  />
                 </div>
                 <div className="flex gap-3 pt-4">
                   <button type="button" onClick={closeModal} className="btn-secondary flex-1">Cancel</button>
@@ -314,3 +419,4 @@ const Skills = () => {
 };
 
 export default Skills;
+
