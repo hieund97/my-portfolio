@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { ADMIN_PATH } from './constants';
 import { useAuth } from './contexts/AuthContext';
 
 // Public pages
@@ -18,8 +19,6 @@ import AdminSocial from './pages/admin/Social';
 // Admin layout
 import AdminLayout from './components/admin/AdminLayout';
 
-// Admin Path constant
-export const ADMIN_PATH = import.meta.env.VITE_ADMIN_PATH || 'admin';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {

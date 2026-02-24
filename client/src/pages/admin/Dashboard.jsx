@@ -9,7 +9,7 @@ import {
     HiUser
 } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
-import { ADMIN_PATH } from '../../App';
+import { ADMIN_PATH } from '../../constants';
 import {
     experienceService, messagesService,
     profileService,

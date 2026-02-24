@@ -14,27 +14,27 @@ import {
   HiX
 } from 'react-icons/hi';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { ADMIN_PATH } from '../../App';
+import { ADMIN_PATH } from '../../constants';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { messagesService } from '../../services/api';
 
-const navItems = [
-  { name: 'Dashboard', path: `/${ADMIN_PATH}`, icon: HiHome, end: true },
-  { name: 'Profile', path: `/${ADMIN_PATH}/profile`, icon: HiUser },
-  { name: 'Skills', path: `/${ADMIN_PATH}/skills`, icon: HiLightningBolt },
-  { name: 'Projects', path: `/${ADMIN_PATH}/projects`, icon: HiCollection },
-  { name: 'Experience', path: `/${ADMIN_PATH}/experience`, icon: HiBriefcase },
-  { name: 'Social Links', path: `/${ADMIN_PATH}/social`, icon: HiLink },
-  { name: 'Messages', path: `/${ADMIN_PATH}/messages`, icon: HiMail },
-];
-
 const AdminLayout = () => {
+  const { isDark, toggleTheme } = useTheme();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
-  const { user, logout } = useAuth();
-  const { isDark, toggleTheme } = useTheme();
-  const navigate = useNavigate();
+
+  const navItems = [
+    { name: 'Dashboard', path: `/${ADMIN_PATH}`, icon: HiHome, end: true },
+    { name: 'Profile', path: `/${ADMIN_PATH}/profile`, icon: HiUser },
+    { name: 'Skills', path: `/${ADMIN_PATH}/skills`, icon: HiLightningBolt },
+    { name: 'Projects', path: `/${ADMIN_PATH}/projects`, icon: HiCollection },
+    { name: 'Experience', path: `/${ADMIN_PATH}/experience`, icon: HiBriefcase },
+    { name: 'Social Links', path: `/${ADMIN_PATH}/social`, icon: HiLink },
+    { name: 'Messages', path: `/${ADMIN_PATH}/messages`, icon: HiMail },
+  ];
 
   useEffect(() => {
     const fetchUnreadCount = async () => {

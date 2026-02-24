@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { HiEye, HiEyeOff, HiLockClosed, HiUser } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import { ADMIN_PATH } from '../../App';
+import { ADMIN_PATH } from '../../constants';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
 

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ADMIN_PATH } from '../constants';
 
 const api = axios.create({
   baseURL: '/api',
@@ -23,11 +24,10 @@ api.interceptors.response.use(
     if (error.response?.status === 401 || error.response?.status === 403) {
       // Only clear token if it's an auth error, not on login attempts
       if (!error.config.url.includes('/auth/login')) {
-        const adminPath = import.meta.env.VITE_ADMIN_PATH || 'admin';
         localStorage.removeItem('token');
-        if (window.location.pathname.startsWith(`/${adminPath}`) && 
+        if (window.location.pathname.startsWith(`/${ADMIN_PATH}`) && 
             !window.location.pathname.includes('/login')) {
-          window.location.href = `/${adminPath}/login`;
+          window.location.href = `/${ADMIN_PATH}/login`;
         }
       }
     }
