@@ -34,7 +34,7 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
           </div>
 
           {/* Social links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {socialLinks.map((link) => (
               <a
                 key={link.id}
@@ -47,11 +47,6 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
               </a>
             ))}
           </div>
-
-          {/* Made with love */}
-          <p className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-500">
-            {t('footer.madeWith')} <FaHeart className="w-4 h-4 text-red-500" />
-          </p>
         </div>
       </div>
     </footer>
