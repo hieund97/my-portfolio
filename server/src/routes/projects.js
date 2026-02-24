@@ -183,4 +183,28 @@ router.delete('/:id', authenticateToken, (req, res) => {
   }
 });
 
+// Reorder projects (admin only)
+router.put('/reorder/batch', authenticateToken, (req, res) => {
+  try {
+    const { items } = req.body; // Array of { id, displayOrder }
+    
+    if (!Array.isArray(items)) {
+      return res.status(400).json({ error: 'Items array is required' });
+    }
+
+    const stmt = db.prepare('UPDATE projects SET displayOrder = ? WHERE id = ?');
+    const transaction = db.transaction((items) => {
+      for (const item of items) {
+        stmt.run(item.displayOrder, item.id);
+      }
+    });
+    
+    transaction(items);
+    res.json({ message: 'Projects reordered successfully' });
+  } catch (error) {
+    console.error('Reorder projects error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 export default router;

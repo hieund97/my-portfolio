@@ -76,6 +76,7 @@ export const projectsService = {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   },
+  reorder: (items) => api.put('/projects/reorder/batch', { items }),
 };
 
 export const experienceService = {

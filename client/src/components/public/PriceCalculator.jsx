@@ -9,9 +9,12 @@ import {
   HiLightningBolt,
   HiMail,
   HiUser,
+  HiX,
 } from 'react-icons/hi';
+import Turnstile from 'react-turnstile';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { VND_RATE, websiteTypes } from '../../data/pricingConfig';
+import { messagesService } from '../../services/api';
 
 const AnimatedPrice = ({ value, language }) => {
   const [display, setDisplay] = useState(value);
@@ -53,6 +56,9 @@ const PriceCalculator = () => {
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [budget, setBudget] = useState('');
   const [contact, setContact] = useState({ name: '', email: '', message: '' });
+  const [turnstileToken, setTurnstileToken] = useState(null);
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [loading, setLoading] = useState(false);
 
   const STEPS = useMemo(
     () => [
@@ -118,9 +124,44 @@ const PriceCalculator = () => {
     if (currentStep > 1) setCurrentStep((s) => s - 1);
   };
 
-  const handleGetQuote = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+  const handleGetQuote = async () => {
+    if (!turnstileToken) {
+      setStatus({ type: 'error', message: t('contact.form.error') || 'Please complete security verification' });
+      return;
+    }
+
+    setLoading(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const summary = `
+Website Type: ${t(selectedTypeData.nameKey)}
+Features: ${selectedFeatures.map((id) => t(selectedTypeData.features.find((f) => f.id === id)?.nameKey)).join(', ')}
+Budget Range: ${budget}
+Estimated Price: ${formatPrice(totalPrice)}
+Timeline: ${timeline.min}-${timeline.max} ${t('pricing.days')}
+User Message: ${contact.message}
+      `.trim();
+
+      await messagesService.send({
+        name: contact.name,
+        email: contact.email,
+        subject: `Project Inquiry: ${t(selectedTypeData.nameKey)}`,
+        message: summary,
+        turnstileToken,
+      });
+
+      setStatus({ type: 'success', message: t('contact.form.success') });
+      // Reset after success
+      setContact({ name: '', email: '', message: '' });
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: error.response?.data?.error || t('contact.form.error'),
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const budgetRanges = t('pricing.budgetRanges', { returnObjects: true }) || [];
@@ -430,6 +471,34 @@ const PriceCalculator = () => {
                             placeholder={t('pricing.projectDetailsPlaceholder')}
                           />
                         </div>
+
+                        {/* Cloudflare Turnstile */}
+                        <div className="flex justify-center md:justify-start pt-2">
+                          <Turnstile
+                            sitekey="0x4AAAAAACRemh9BLpQR9RqW"
+                            onVerify={(token) => setTurnstileToken(token)}
+                          />
+                        </div>
+
+                        {/* Status message */}
+                        {status.message && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className={`flex items-center gap-2 p-4 rounded-xl ${
+                              status.type === 'success'
+                                ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400'
+                                : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400'
+                            }`}
+                          >
+                            {status.type === 'success' ? (
+                              <HiCheck className="w-5 h-5" />
+                            ) : (
+                              <HiX className="w-5 h-5" />
+                            )}
+                            <span className="text-sm">{status.message}</span>
+                          </motion.div>
+                        )}
                       </div>
                     </motion.div>
                   )}
@@ -465,9 +534,38 @@ const PriceCalculator = () => {
                 ) : (
                   <button
                     onClick={handleGetQuote}
-                    className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-primary-600 to-cyan-600 text-white hover:scale-105 shadow-lg transition-all duration-200 cursor-pointer"
+                    disabled={loading || !contact.name || !contact.email}
+                    className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                      loading || !contact.name || !contact.email
+                        ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-primary-600 to-cyan-600 text-white hover:scale-105 shadow-lg'
+                    }`}
                   >
-                    {t('pricing.getQuote')} <HiArrowRight className="w-4 h-4" />
+                    {loading ? (
+                      <>
+                        <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24">
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            fill="none"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          />
+                        </svg>
+                        {t('contact.form.sending')}
+                      </>
+                    ) : (
+                      <>
+                        {t('pricing.getQuote')} <HiArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 )}
               </div>

@@ -1,7 +1,8 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { FaTelegram } from 'react-icons/fa';
-import { HiCheck, HiLocationMarker, HiMail, HiPaperAirplane, HiPhone, HiX } from 'react-icons/hi';
+import { HiArrowRight, HiCheck, HiLocationMarker, HiMail, HiPaperAirplane, HiPhone, HiX } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 import Turnstile from 'react-turnstile';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { messagesService } from '../../services/api';
@@ -10,6 +11,7 @@ const Contact = ({ profile = {} }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', _h_: '' });
   const [turnstileToken, setTurnstileToken] = useState(null);
   const [status, setStatus] = useState({ type: '', message: '' });
@@ -101,8 +103,7 @@ const Contact = ({ profile = {} }) => {
               transition={{ delay: 0.4 }}
               className="space-y-6"
             >
-              <h3 className="text-2xl font-bold mb-8">{t('contact.getInTouch')}</h3>
-              
+            <div className="space-y-8">
               <div className="space-y-4">
                 {contactInfo.map((item, index) => (
                   <motion.div
@@ -128,7 +129,32 @@ const Contact = ({ profile = {} }) => {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
+              <div>
+                {/* <h3 className="text-2xl font-bold mb-4">{t('contact.getInTouch')}</h3> */}
+                
+                {/* Pricing CTA Button - Same as Hero */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.45 }}
+                  className="mb-8"
+                >
+                  <p className="mb-3 text-sm text-slate-500 dark:text-slate-400 font-medium ml-1">
+                    {t('contact.or')}
+                  </p>
+                  <button 
+                    onClick={() => navigate('/pricing')}
+                    className="group relative w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary-600 to-cyan-600 text-white rounded-2xl font-bold overflow-hidden transition-all hover:scale-[1.02] active:scale-95 shadow-[0_4px_20px_rgba(14,165,233,0.3)] dark:shadow-[0_4px_25px_rgba(14,165,233,0.5)] flex items-center justify-center gap-3"
+                  >
+                    <HiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <span>{t('hero.getQuote')}</span>
+                  </button>
+                  
+                </motion.div>
+              </div>
+              
+            </div>
+          </motion.div>
 
             {/* Contact form */}
             <motion.div

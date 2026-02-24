@@ -2,6 +2,7 @@ import axios from 'axios';
 import express from 'express';
 import { db } from '../config/database.js';
 import { authenticateToken } from '../middleware/auth.js';
+import { sendAdminEmail } from '../services/emailService.js';
 
 const router = express.Router();
 
@@ -56,6 +57,11 @@ router.post('/', async (req, res) => {
       INSERT INTO messages (name, email, subject, message)
       VALUES (?, ?, ?, ?)
     `).run(name, email, subject, message);
+    
+    // Send email notification to admin (non-blocking)
+    sendAdminEmail({ name, email, subject, message }).catch(err => 
+      console.error('Email notification background error:', err)
+    );
     
     res.status(201).json({ 
       message: 'Message sent successfully',
