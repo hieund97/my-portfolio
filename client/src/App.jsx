@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ADMIN_PATH } from './constants';
 import { useAuth } from './contexts/AuthContext';
