@@ -31,22 +31,27 @@ const Navbar = () => {
   useEffect(() => {
     if (!isHomePage) return;
 
+    let ticking = false;
     const handleScroll = () => {
-      const sections = sectionItems.map(item => item.href.replace('#', ''));
-
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100) {
-            setActiveSection(section);
-            break;
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const sections = sectionItems.map(item => item.href.replace('#', ''));
+        for (const section of [...sections].reverse()) {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 100) {
+              setActiveSection(section);
+              break;
+            }
           }
         }
-      }
+        ticking = false;
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [sectionItems, isHomePage]);
 

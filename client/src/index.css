@@ -153,3 +153,101 @@
     text-wrap: balance;
   }
 }
+
+/* ========================================
+   PERFORMANCE: CSS Animations
+   Replaces JS framer-motion infinite loops
+   ======================================== */
+
+/* Particle float animation (replaces framer-motion) */
+.particle-float {
+  will-change: transform, opacity;
+  animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-120px); opacity: 0; }
+}
+
+/* Hero glass panel (replaces dangerouslySetInnerHTML) */
+.hero-glass-panel {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.dark .hero-glass-panel {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+/* Hero gradient border animation (replaces JS animate-gradient-xy) */
+.hero-gradient-border {
+  background-size: 400% 400%;
+  animation: gradientXY 8s ease infinite;
+}
+
+@keyframes gradientXY {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Hero gradient text animation (replaces JS animate-gradient-x) */
+.hero-gradient-text {
+  background-size: 200% 200%;
+  animation: gradientX 6s ease infinite;
+}
+
+@keyframes gradientX {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Hero glow pulse (replaces framer-motion opacity/scale infinite) */
+.hero-glow-1 {
+  animation: glowPulse1 8s ease-in-out infinite;
+  will-change: opacity;
+}
+
+.hero-glow-2 {
+  animation: glowPulse2 12s ease-in-out 1s infinite;
+  will-change: opacity;
+}
+
+@keyframes glowPulse1 {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes glowPulse2 {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.2; }
+}
+
+/* Tech chip glass effect (replaces dangerouslySetInnerHTML in Skills) */
+.tech-chip {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Accessibility: Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .particle-float,
+  .hero-glow-1,
+  .hero-glow-2,
+  .hero-gradient-border,
+  .hero-gradient-text {
+    animation: none !important;
+  }
+  
+  .card-hover,
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    transition-duration: 0.01ms !important;
+  }
+}
+

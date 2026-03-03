@@ -1,35 +1,36 @@
+import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ADMIN_PATH } from './constants';
 import { useAuth } from './contexts/AuthContext';
 
-// Public pages
+// Public pages - Home is eager (critical path)
 import Home from './pages/public/Home';
-import Pricing from './pages/public/Pricing';
 
-// Admin pages
-import AdminDashboard from './pages/admin/Dashboard';
-import AdminExperience from './pages/admin/Experience';
-import AdminLogin from './pages/admin/Login';
-import AdminMessages from './pages/admin/Messages';
-import AdminProfile from './pages/admin/Profile';
-import AdminProjects from './pages/admin/Projects';
-import AdminSkills from './pages/admin/Skills';
-import AdminSocial from './pages/admin/Social';
+// Lazy-loaded pages (code splitting)
+const Pricing = lazy(() => import('./pages/public/Pricing'));
+const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
+const AdminExperience = lazy(() => import('./pages/admin/Experience'));
+const AdminLogin = lazy(() => import('./pages/admin/Login'));
+const AdminMessages = lazy(() => import('./pages/admin/Messages'));
+const AdminProfile = lazy(() => import('./pages/admin/Profile'));
+const AdminProjects = lazy(() => import('./pages/admin/Projects'));
+const AdminSkills = lazy(() => import('./pages/admin/Skills'));
+const AdminSocial = lazy(() => import('./pages/admin/Social'));
+const AdminLayout = lazy(() => import('./components/admin/AdminLayout'));
 
-// Admin layout
-import AdminLayout from './components/admin/AdminLayout';
-
+// Shared loading fallback
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+    <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent"></div>
+  </div>
+);
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent"></div>
-      </div>
-    );
+    return <PageLoader />;
   }
 
   if (!isAuthenticated) {
@@ -41,6 +42,7 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   return (
+    <Suspense fallback={<PageLoader />}>
     <Routes>
       {/* Public routes */}
       <Route path="/" element={<Home />} />
@@ -68,6 +70,7 @@ function App() {
       {/* 404 fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </Suspense>
   );
 }
 

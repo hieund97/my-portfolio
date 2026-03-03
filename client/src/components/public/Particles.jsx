@@ -1,43 +1,41 @@
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const Particles = () => {
-  const [particles, setParticles] = useState([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Generate random particles
-    const newParticles = Array.from({ length: 20 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100, // percentage
-      y: Math.random() * 100, // percentage
-      size: Math.random() * 4 + 1, // 1-5px
-      duration: Math.random() * 20 + 10, // 10-30s
-      delay: Math.random() * 5,
-    }));
-    setParticles(newParticles);
+    // Defer particle rendering to avoid blocking initial paint
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
   }, []);
+
+  const particles = useMemo(() => 
+    Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 3 + 1,
+      duration: Math.random() * 20 + 15,
+      delay: Math.random() * 10,
+    })),
+    []
+  );
+
+  if (!mounted) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {particles.map((particle) => (
-        <motion.div
+        <div
           key={particle.id}
-          className="absolute rounded-full bg-slate-400/20 dark:bg-slate-500/20"
+          className="absolute rounded-full bg-slate-400/15 dark:bg-slate-500/15 particle-float"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
             width: particle.size,
             height: particle.size,
-          }}
-          animate={{
-            y: [0, -100],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: particle.duration,
-            repeat: Infinity,
-            delay: particle.delay,
-            ease: "linear",
+            animationDuration: `${particle.duration}s`,
+            animationDelay: `${particle.delay}s`,
           }}
         />
       ))}

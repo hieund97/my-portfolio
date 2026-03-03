@@ -2,43 +2,43 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { FaJava, FaMicrosoft } from 'react-icons/fa';
 import {
-  SiAmazonwebservices,
-  SiDocker,
-  SiExpress,
-  SiFigma,
-  SiFirebase,
-  SiFlutter,
-  SiGit,
-  SiGooglecloud,
-  SiGraphql,
-  SiJavascript,
-  SiKubernetes,
-  SiLaravel,
-  SiLinux,
-  SiMongodb,
-  SiMui,
-  SiMysql,
-  SiNestjs,
-  SiNextdotjs,
-  SiNginx,
-  SiNodedotjs,
-  SiPaypal,
-  SiPhp,
-  SiPostgresql,
-  SiPrisma,
-  SiPython,
-  SiRabbitmq,
-  SiReact,
-  SiRedis,
-  SiRedux,
-  SiSass,
-  SiSpringboot,
-  SiStripe,
-  SiSupabase,
-  SiTailwindcss,
-  SiTypescript,
-  SiVuedotjs,
-  SiWordpress
+    SiAmazonwebservices,
+    SiDocker,
+    SiExpress,
+    SiFigma,
+    SiFirebase,
+    SiFlutter,
+    SiGit,
+    SiGooglecloud,
+    SiGraphql,
+    SiJavascript,
+    SiKubernetes,
+    SiLaravel,
+    SiLinux,
+    SiMongodb,
+    SiMui,
+    SiMysql,
+    SiNestjs,
+    SiNextdotjs,
+    SiNginx,
+    SiNodedotjs,
+    SiPaypal,
+    SiPhp,
+    SiPostgresql,
+    SiPrisma,
+    SiPython,
+    SiRabbitmq,
+    SiReact,
+    SiRedis,
+    SiRedux,
+    SiSass,
+    SiSpringboot,
+    SiStripe,
+    SiSupabase,
+    SiTailwindcss,
+    SiTypescript,
+    SiVuedotjs,
+    SiWordpress
 } from 'react-icons/si';
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -110,6 +110,10 @@ const Skills = ({ skills = [] }) => {
           src="https://cdn.brandfetch.io/idn4xaCzTm/w/180/h/180/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1734358540621" 
           alt="MoMo" 
           className={iconClass}
+          width={32}
+          height={32}
+          loading="lazy"
+          decoding="async"
         />
       );
     }
@@ -120,6 +124,10 @@ const Skills = ({ skills = [] }) => {
           src="https://cdn.brandfetch.io/idV02t6WJs/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX&t=1766490355643" 
           alt="VNPay" 
           className={iconClass}
+          width={32}
+          height={32}
+          loading="lazy"
+          decoding="async"
         />
       );
     }
@@ -130,6 +138,10 @@ const Skills = ({ skills = [] }) => {
           src="https://cdn.brandfetch.io/id1vxw7iJ3/w/1200/h/1200/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1765160054568" 
           alt="Payoo" 
           className={iconClass}
+          width={32}
+          height={32}
+          loading="lazy"
+          decoding="async"
         />
       );
     }
@@ -256,12 +268,6 @@ const Skills = ({ skills = [] }) => {
         </motion.div>
       </div>
 
-      <style dangerouslySetInnerHTML={{__html: `
-        .tech-chip {
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-        }
-      `}} />
     </section>
   );
 };

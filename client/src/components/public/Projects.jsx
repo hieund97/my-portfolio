@@ -52,13 +52,19 @@ const Projects = ({ projects = [] }) => {
 
   // Handle responsive items per view
   useEffect(() => {
+    let timeout;
     const handleResize = () => {
-      // Show 2 items on lg screens, 1 item on smaller screens
-      setItemsPerView(window.innerWidth >= 1024 ? 2 : 1);
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        setItemsPerView(window.innerWidth >= 1024 ? 2 : 1);
+      }, 150);
     };
-    handleResize(); // trigger on mount
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    handleResize();
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeout);
+    };
   }, []);
 
   // Ensure currentIndex stays within bounds if window resize changes maxIndex
@@ -182,6 +188,10 @@ const Projects = ({ projects = [] }) => {
                           src={`/uploads/${project.image}`} 
                           alt={project.title}
                           className="w-full h-full object-contain filter drop-shadow-xl relative z-10 transition-transform duration-700 ease-out group-hover:scale-105"
+                          loading="lazy"
+                          width={600}
+                          height={400}
+                          decoding="async"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center relative z-10 transition-transform duration-700 ease-out group-hover:scale-105">
