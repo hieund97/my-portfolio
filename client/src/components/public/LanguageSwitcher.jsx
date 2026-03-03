@@ -12,7 +12,9 @@ const LanguageSwitcher = ({ className = '' }) => {
     <div className={`relative ${className}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm font-medium"
+        className="flex items-center gap-2 px-3 py-2 min-w-[48px] min-h-[48px] rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm font-medium"
+        aria-label={`Change language, current: ${currentLang.name}`}
+        aria-expanded={isOpen}
       >
         <span className="text-base">{currentLang.flag}</span>
         <span className="hidden sm:inline">{language.toUpperCase()}</span>

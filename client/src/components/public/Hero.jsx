@@ -53,7 +53,8 @@ const Hero = ({ profile = {}, socialLinks = [] }) => {
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-3.5 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:border-primary-200 dark:hover:border-primary-500/50 transition-all duration-300"
+          aria-label={`${link.platform} profile`}
+          className="p-3.5 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-300 hover:text-primary-600 dark:hover:text-white hover:bg-primary-50 dark:hover:bg-primary-500/20 hover:border-primary-200 dark:hover:border-primary-500/50 transition-all duration-300"
         >
           <IconComp className="w-5 h-5" />
         </a>

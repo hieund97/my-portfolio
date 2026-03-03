@@ -74,6 +74,7 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
+      aria-label="Main navigation"
     >
       <motion.div
         className="absolute inset-0 bg-white/80 dark:bg-slate-950/80 border-b border-slate-200/50 dark:border-slate-800/50"
@@ -87,6 +88,7 @@ const Navbar = () => {
             href="#hero"
             onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
             className="font-display text-2xl font-bold gradient-text"
+            aria-label="HieuIsADev - Back to top"
           >
             HieuIsADev
           </a>
@@ -134,7 +136,9 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2.5 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="md:hidden p-2.5 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
             >
               {isOpen ? <HiX className="w-5 h-5" /> : <HiMenu className="w-5 h-5" />}
             </button>
@@ -153,7 +157,7 @@ const Navbar = () => {
                 key={item.href}
                 href={item.href}
                 onClick={(e) => { e.preventDefault(); scrollToSection(item.href); }}
-                className={`block px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                className={`px-4 py-3 min-h-[48px] flex items-center rounded-xl text-sm font-medium transition-colors ${
                   isHomePage && activeSection === item.href.replace('#', '')
                     ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
                     : 'text-slate-600 dark:text-slate-400'
@@ -165,7 +169,7 @@ const Navbar = () => {
             <Link
               to="/pricing"
               onClick={() => setIsOpen(false)}
-              className={`block px-4 py-2.5 rounded-xl text-sm font-semibold text-center mt-2 transition-all shadow-sm ${
+              className={`px-4 py-3 min-h-[48px] flex items-center justify-center rounded-xl text-sm font-semibold text-center mt-2 transition-all shadow-sm ${
                 isPricingActive
                   ? 'bg-primary-600 text-white dark:bg-cyan-500'
                   : 'bg-primary-50 text-primary-600 dark:bg-cyan-500/10 dark:text-cyan-400 border border-primary-100 dark:border-cyan-500/20'

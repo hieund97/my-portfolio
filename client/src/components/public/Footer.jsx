@@ -1,4 +1,4 @@
-import { FaFacebook, FaGithub, FaHeart, FaLinkedin, FaTelegram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaFacebook, FaGithub, FaLinkedin, FaTelegram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -20,12 +20,12 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
   };
 
   return (
-    <footer className="py-12 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800">
+    <footer className="py-12 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800" role="contentinfo">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo and copyright */}
           <div className="text-center md:text-left">
-            <a href="#hero" className="font-display text-xl font-bold gradient-text">
+            <a href="#hero" className="font-display text-xl font-bold gradient-text" aria-label="Back to top">
               HieuIsADev
             </a>
             <p className="mt-2 text-sm text-slate-500 dark:text-slate-500">
@@ -34,19 +34,22 @@ const Footer = ({ profile = {}, socialLinks = [] }) => {
           </div>
 
           {/* Social links */}
-          <div className="flex items-center gap-2">
-            {socialLinks.map((link) => (
-              <a
-                key={link.id}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-xl text-slate-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-              >
-                {getSocialIcon(link.platform)}
-              </a>
-            ))}
-          </div>
+          <nav aria-label="Social media links">
+            <div className="flex items-center gap-2">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${link.platform} profile`}
+                  className="p-3 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-xl text-slate-500 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                >
+                  {getSocialIcon(link.platform)}
+                </a>
+              ))}
+            </div>
+          </nav>
         </div>
       </div>
     </footer>
