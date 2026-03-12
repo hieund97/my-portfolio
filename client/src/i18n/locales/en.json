@@ -158,5 +158,17 @@
   "footer": {
     "rights": "All rights reserved.",
     "madeWith": "Made with"
+  },
+  "seo": {
+    "home": {
+      "title": "Hieu's Portfolio - Full Stack Developer",
+      "description": "The professional portfolio of Hieu, a Full Stack Developer. Showcasing projects and expertise in React, Node.js, and modern web solutions.",
+      "keywords": "full stack developer, programming portfolio, web design, react developer, node.js, software engineer portfolio"
+    },
+    "pricing": {
+      "title": "Project Pricing & Estimation | Hieu's Portfolio",
+      "description": "Get an instant estimation for your website project. Transparent pricing for Landing Pages, Business Sites, E-commerce, and Custom Web Apps.",
+      "keywords": "website pricing, web development cost, project estimation, professional web design, software freelancer"
+    }
   }
 }

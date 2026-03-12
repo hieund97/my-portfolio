@@ -158,5 +158,17 @@
   "footer": {
     "rights": "Bảo lưu mọi quyền.",
     "madeWith": "Được tạo với"
+  },
+  "seo": {
+    "home": {
+      "title": "Lập trình cùng Hiếu - Full Stack Developer Portfolio",
+      "description": "Portfolio cá nhân của Hiếu - Full Stack Developer. Chia sẻ dự án, kỹ năng lập trình React, Node.js và các giải pháp phần mềm hiện đại.",
+      "keywords": "full stack developer, portfolio lập trình, thiết kế website, react developer, node.js, hồ sơ năng lực lập trình viên"
+    },
+    "pricing": {
+      "title": "Báo Giá & Ước Tính Dự Án Website | Lập trình cùng Hiếu",
+      "description": "Ước tính chi phí thiết kế và phát triển website trực tiếp. Báo giá minh bạch cho Landing Page, Website doanh nghiệp, Thương mại điện tử và Ứng dụng Web.",
+      "keywords": "báo giá website, chi phí làm web, ước tính dự án phần mềm, thiết kế web chuyên nghiệp, freelancer lập trình"
+    }
   }
 }

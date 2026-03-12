@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Contact from '../../components/public/Contact';
 import Experience from '../../components/public/Experience';
 import Footer from '../../components/public/Footer';
@@ -68,6 +69,24 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>{t('seo.home.title')}</title>
+        <meta name="description" content={t('seo.home.description')} />
+        <meta name="keywords" content={t('seo.home.keywords')} />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:title" content={t('seo.home.title')} />
+        <meta property="og:description" content={t('seo.home.description')} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={window.location.href} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={t('seo.home.title')} />
+        <meta name="twitter:description" content={t('seo.home.description')} />
+
+        <link rel="canonical" href={window.location.href} />
+      </Helmet>
       <Navbar />
       <main>
         <Hero profile={data.profile} socialLinks={data.socialLinks} />
