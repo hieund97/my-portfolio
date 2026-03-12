@@ -7,7 +7,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { profileService, socialService } from '../../services/api';
 
 const Pricing = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [profile, setProfile] = useState({});
   const [socialLinks, setSocialLinks] = useState([]);
 
